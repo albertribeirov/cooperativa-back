@@ -23,4 +23,23 @@ public class EstoqueService {
         return ResponseEntity.ok().build();
     }
 
+    @Transactional
+    public ResponseEntity<Estoque> deleteById(Number id){
+        if(!estoqueRepository.existsById((Long) id)){
+            return ResponseEntity.notFound().build();
+        }
+        estoqueRepository.deleteById((Long) id);
+        return ResponseEntity.ok().build();
+    }
+
+    @Transactional
+    public ResponseEntity<Estoque> updateById(Number id, Estoque estoque){
+        if(!estoqueRepository.existsById((Long) id)){
+            return ResponseEntity.notFound().build();
+        }
+        estoque.setId((Long) id);
+        Estoque estoqueAtt = estoqueRepository.save(estoque);
+        return ResponseEntity.ok(estoqueAtt);
+    }
+
 }

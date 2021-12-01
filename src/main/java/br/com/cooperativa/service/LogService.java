@@ -22,4 +22,23 @@ public class LogService {
         return ResponseEntity.ok().build();
     }
 
+    @Transactional
+    public ResponseEntity<Log> deleteById(Number id){
+        if(!logRepository.existsById((Long) id)){
+            return ResponseEntity.notFound().build();
+        }
+        logRepository.deleteById((Long) id);
+        return ResponseEntity.ok().build();
+    }
+
+    @Transactional
+    public ResponseEntity<Log> updateById(Number id, Log log){
+        if(!logRepository.existsById((Long) id)){
+            return ResponseEntity.notFound().build();
+        }
+        log.setId((Long) id);
+        Log logAtt = logRepository.save(log);
+        return ResponseEntity.ok(logAtt);
+    }
+
 }

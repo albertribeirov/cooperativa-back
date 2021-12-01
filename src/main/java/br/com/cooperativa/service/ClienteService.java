@@ -44,8 +44,8 @@ public class ClienteService {
             return ResponseEntity.notFound().build();
         }
         cliente.setId((Long) id);
-        Cliente cliente_att = clienteRepository.save(cliente);
-        return ResponseEntity.ok(cliente_att);
+        Cliente clienteAtt = clienteRepository.save(cliente);
+        return ResponseEntity.ok(clienteAtt);
 
     }
 

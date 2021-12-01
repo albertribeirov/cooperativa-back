@@ -2,8 +2,6 @@ package br.com.cooperativa.service;
 
 import br.com.cooperativa.model.Cooperado;
 import br.com.cooperativa.repository.CooperadoRepository;
-import org.apache.coyote.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,8 +39,8 @@ public class CooperadoService {
             return ResponseEntity.notFound().build();
         }
         cooperado.setId((Long) id);
-        Cooperado cooperado_att = cooperadoRepository.save(cooperado);
-        return ResponseEntity.ok(cooperado_att);
+        Cooperado cooperadoAtt = cooperadoRepository.save(cooperado);
+        return ResponseEntity.ok(cooperadoAtt);
     }
 
     public ResponseEntity<Cooperado> findById(Number id){

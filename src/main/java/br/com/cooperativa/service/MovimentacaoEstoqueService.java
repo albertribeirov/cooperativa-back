@@ -16,8 +16,28 @@ public class MovimentacaoEstoqueService {
     }
 
     @Transactional
-    public ResponseEntity<MovimentacaoEstoque> save(MovimentacaoEstoque movimentacaoEstoque){
+    public ResponseEntity<MovimentacaoEstoque> save(MovimentacaoEstoque movimentacaoEstoque) {
         movimentacaoEstoqueRepository.save(movimentacaoEstoque);
         return ResponseEntity.ok().build();
     }
+
+    @Transactional
+    public ResponseEntity<MovimentacaoEstoque> deleteById(Number id) {
+        if(!movimentacaoEstoqueRepository.existsById((Long) id)){
+            return ResponseEntity.notFound().build();
+        }
+        movimentacaoEstoqueRepository.deleteById((Long) id);
+        return ResponseEntity.ok().build();
+    }
+
+    @Transactional
+    public ResponseEntity<MovimentacaoEstoque> updateById(Number id, MovimentacaoEstoque mv){
+        if(!movimentacaoEstoqueRepository.existsById((Long) id)){
+            return ResponseEntity.notFound().build();
+        }
+        mv.setId((Long) id);
+        MovimentacaoEstoque mvAtt = movimentacaoEstoqueRepository.save(mv);
+        return ResponseEntity.ok(mvAtt);
+    }
+
 }
