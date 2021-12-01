@@ -48,4 +48,12 @@ public class LogService {
         return ResponseEntity.ok(logs);
     }
 
+    public ResponseEntity<Log> findById(Number id){
+        if(!logRepository.existsById((Long) id)){
+            return ResponseEntity.notFound().build();
+        }
+        Log log = logRepository.findById((Long) id).get();
+        return ResponseEntity.ok(log);
+    }
+
 }

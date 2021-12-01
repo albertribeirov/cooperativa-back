@@ -49,4 +49,12 @@ public class DetalhamentoVendaService {
         return ResponseEntity.ok(detalhamentoVendas);
     }
 
+    public ResponseEntity<DetalhamentoVenda> findById(Number id){
+        if(!detalhamentoVendaRepository.existsById((Long) id)){
+            return ResponseEntity.notFound().build();
+        }
+        DetalhamentoVenda detalhamentoVenda = detalhamentoVendaRepository.findById((Long) id).get();
+        return ResponseEntity.ok(detalhamentoVenda);
+    }
+
 }

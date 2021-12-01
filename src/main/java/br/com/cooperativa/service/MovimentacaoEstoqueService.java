@@ -47,4 +47,12 @@ public class MovimentacaoEstoqueService {
         return ResponseEntity.ok(movimentacaoEstoques);
     }
 
+    public ResponseEntity<MovimentacaoEstoque> findById(Number id){
+        if(!movimentacaoEstoqueRepository.existsById((Long) id)){
+            return ResponseEntity.notFound().build();
+        }
+        MovimentacaoEstoque movimentacaoEstoque = movimentacaoEstoqueRepository.findById((Long) id).get();
+        return ResponseEntity.ok(movimentacaoEstoque);
+    }
+
 }

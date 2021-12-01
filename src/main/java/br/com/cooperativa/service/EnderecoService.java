@@ -2,7 +2,6 @@ package br.com.cooperativa.service;
 
 import br.com.cooperativa.model.Endereco;
 import br.com.cooperativa.repository.EnderecoRepository;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,6 +46,14 @@ public class EnderecoService {
     public ResponseEntity<List<Endereco>> findAll(){
         List<Endereco> enderecos = enderecoRepository.findAll();
         return ResponseEntity.ok(enderecos);
+    }
+
+    public ResponseEntity<Endereco> findById(Number id){
+        if(!enderecoRepository.existsById((Long) id)){
+            return ResponseEntity.notFound().build();
+        }
+        Endereco endereco = enderecoRepository.findById((Long) id).get();
+        return ResponseEntity.ok(endereco);
     }
 
 }

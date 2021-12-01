@@ -2,7 +2,6 @@ package br.com.cooperativa.service;
 
 import br.com.cooperativa.model.Estoque;
 import br.com.cooperativa.repository.EstoqueRepository;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,14 +19,14 @@ public class EstoqueService {
     }
 
     @Transactional
-    public ResponseEntity<Estoque> save(Estoque estoque){
+    public ResponseEntity<Estoque> save(Estoque estoque) {
         estoqueRepository.save(estoque);
         return ResponseEntity.ok().build();
     }
 
     @Transactional
-    public ResponseEntity<Estoque> deleteById(Number id){
-        if(!estoqueRepository.existsById((Long) id)){
+    public ResponseEntity<Estoque> deleteById(Number id) {
+        if (!estoqueRepository.existsById((Long) id)) {
             return ResponseEntity.notFound().build();
         }
         estoqueRepository.deleteById((Long) id);
@@ -35,8 +34,8 @@ public class EstoqueService {
     }
 
     @Transactional
-    public ResponseEntity<Estoque> updateById(Number id, Estoque estoque){
-        if(!estoqueRepository.existsById((Long) id)){
+    public ResponseEntity<Estoque> updateById(Number id, Estoque estoque) {
+        if (!estoqueRepository.existsById((Long) id)) {
             return ResponseEntity.notFound().build();
         }
         estoque.setId((Long) id);
@@ -44,9 +43,17 @@ public class EstoqueService {
         return ResponseEntity.ok(estoqueAtt);
     }
 
-    public ResponseEntity<List<Estoque>> findAll(){
+    public ResponseEntity<List<Estoque>> findAll() {
         List<Estoque> estoques = estoqueRepository.findAll();
         return ResponseEntity.ok(estoques);
+    }
+
+    public ResponseEntity<Estoque> findById(Number id) {
+        if (!estoqueRepository.existsById((Long) id)){
+            return ResponseEntity.notFound().build();
+        }
+        Estoque estoque = estoqueRepository.findById((Long) id).get();
+        return ResponseEntity.ok(estoque);
     }
 
 }

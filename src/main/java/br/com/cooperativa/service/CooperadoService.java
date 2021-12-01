@@ -43,6 +43,11 @@ public class CooperadoService {
         return ResponseEntity.ok(cooperadoAtt);
     }
 
+    public ResponseEntity<List<Cooperado>> findAll(){
+        List<Cooperado> cooperados = cooperadoRepository.findAll();
+        return ResponseEntity.ok(cooperados);
+    }
+
     public ResponseEntity<Cooperado> findById(Number id){
         if(!cooperadoRepository.existsById((Long) id)){
             return ResponseEntity.notFound().build();
@@ -51,9 +56,5 @@ public class CooperadoService {
         return ResponseEntity.ok(cooperado);
     }
 
-    public ResponseEntity<List<Cooperado>> findAll(){
-        List<Cooperado> cooperados = cooperadoRepository.findAll();
-        return ResponseEntity.ok(cooperados);
-    }
 
 }

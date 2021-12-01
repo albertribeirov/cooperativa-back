@@ -48,4 +48,12 @@ public class TipoMaterialService {
         return ResponseEntity.ok(tipoMaterials);
     }
 
+    public ResponseEntity<TipoMaterial> findById(Number id){
+        if(!tipoMaterialRepository.existsById((Long) id)){
+            return ResponseEntity.notFound().build();
+        }
+        TipoMaterial tipoMaterial = tipoMaterialRepository.findById((Long) id).get();
+        return ResponseEntity.ok(tipoMaterial);
+    }
+
 }

@@ -48,4 +48,12 @@ public class VendaService {
         return ResponseEntity.ok(vendas);
     }
 
+    public ResponseEntity<Venda> findById(Number id){
+        if(!vendaRepository.existsById((Long) id)){
+            return ResponseEntity.notFound().build();
+        }
+        Venda venda = vendaRepository.findById((Long) id).get();
+        return ResponseEntity.ok(venda);
+    }
+
 }
