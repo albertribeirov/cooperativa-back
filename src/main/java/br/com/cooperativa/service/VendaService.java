@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class VendaService {
 
@@ -39,6 +41,11 @@ public class VendaService {
         venda.setId((Long) id);
         Venda vendaAtt = vendaRepository.save(venda);
         return ResponseEntity.ok(vendaAtt);
+    }
+
+    public ResponseEntity<List<Venda>> findAll(){
+        List<Venda> vendas = vendaRepository.findAll();
+        return ResponseEntity.ok(vendas);
     }
 
 }

@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class EstoqueService {
 
@@ -40,6 +42,11 @@ public class EstoqueService {
         estoque.setId((Long) id);
         Estoque estoqueAtt = estoqueRepository.save(estoque);
         return ResponseEntity.ok(estoqueAtt);
+    }
+
+    public ResponseEntity<List<Estoque>> findAll(){
+        List<Estoque> estoques = estoqueRepository.findAll();
+        return ResponseEntity.ok(estoques);
     }
 
 }

@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class EnderecoService {
 
@@ -40,6 +42,11 @@ public class EnderecoService {
         endereco.setId((Long) id);
         Endereco enderecoAtt = enderecoRepository.save(endereco);
         return ResponseEntity.ok(enderecoAtt);
+    }
+
+    public ResponseEntity<List<Endereco>> findAll(){
+        List<Endereco> enderecos = enderecoRepository.findAll();
+        return ResponseEntity.ok(enderecos);
     }
 
 }

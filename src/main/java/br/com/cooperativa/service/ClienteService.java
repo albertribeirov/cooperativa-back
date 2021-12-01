@@ -34,12 +34,10 @@ public class ClienteService {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
-
     }
 
     @Transactional
     public ResponseEntity<Cliente> updateByID(Number id, Cliente cliente){
-
         if(!clienteRepository.existsById((Long) id)){
             return ResponseEntity.notFound().build();
         }

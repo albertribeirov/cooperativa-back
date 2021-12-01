@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class LogService {
 
@@ -39,6 +41,11 @@ public class LogService {
         log.setId((Long) id);
         Log logAtt = logRepository.save(log);
         return ResponseEntity.ok(logAtt);
+    }
+
+    public ResponseEntity<List<Log>> findAll(){
+        List<Log> logs = logRepository.findAll();
+        return ResponseEntity.ok(logs);
     }
 
 }
