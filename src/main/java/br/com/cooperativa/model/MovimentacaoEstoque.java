@@ -49,11 +49,12 @@ public class MovimentacaoEstoque implements Serializable {
 
     }
 
-    public MovimentacaoEstoque(Integer quantidade, TipoMovimentacaoEstoque tipoMovimentacaoEstoque, TipoMaterial tipoMaterial, Material material) {
+    public MovimentacaoEstoque(Integer quantidade, TipoMovimentacaoEstoque tipoMovimentacaoEstoque, TipoMaterial tipoMaterial, Material material, LocalDate dataMovimentacao) {
         this.quantidade = quantidade;
         this.tipoMovimentacaoEstoque = tipoMovimentacaoEstoque;
         this.tipoMaterial = tipoMaterial;
         this.material = material;
+        this.dataMovimentacao = dataMovimentacao;
     }
 
     public Long getId() {

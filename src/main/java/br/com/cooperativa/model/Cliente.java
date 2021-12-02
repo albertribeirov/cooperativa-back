@@ -46,6 +46,19 @@ public class Cliente implements Serializable  {
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
+    public Cliente() {
+    }
+
+    public Cliente(String nome, String telefoneUm, String telefoneDois, Endereco endereco, String cpf_cnpj, boolean ativo, String observacao) {
+        this.nome = nome;
+        this.telefoneUm = telefoneUm;
+        this.telefoneDois = telefoneDois;
+        this.endereco = endereco;
+        this.cpf_cnpj = cpf_cnpj;
+        this.ativo = ativo;
+        this.observacao = observacao;
+    }
+
     public Long getId() {
         return id;
     }
