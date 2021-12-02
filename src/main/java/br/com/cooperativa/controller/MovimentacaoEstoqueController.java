@@ -1,57 +1,51 @@
 package br.com.cooperativa.controller;
 
+import br.com.cooperativa.dto.MovimentacaoEstoqueDTO;
 import br.com.cooperativa.model.MovimentacaoEstoque;
-import br.com.cooperativa.repository.MovimentacaoEstoqueRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.cooperativa.service.MovimentacaoEstoqueService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
-import javax.websocket.server.PathParam;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/movimentacaoestoque")
 @CrossOrigin("localhost:3000")
 public class MovimentacaoEstoqueController {
 
-    @Autowired
-    private MovimentacaoEstoqueRepository movimentacaoEstoqueRepository;
+    private final MovimentacaoEstoqueService movimentacaoEstoqueService;
+
+    public MovimentacaoEstoqueController(MovimentacaoEstoqueService movimentacaoEstoqueService) {
+        this.movimentacaoEstoqueService = movimentacaoEstoqueService;
+    }
 
     @GetMapping
-    public List<MovimentacaoEstoque> getmovimentacaoEstoque() {
-        return movimentacaoEstoqueRepository.findAll();
+    @ResponseBody
+    public ResponseEntity<List<MovimentacaoEstoque>> getAll() {
+        return movimentacaoEstoqueService.findAll();
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MovimentacaoEstoque> getMovimentacao(@PathVariable Long id){
+        return movimentacaoEstoqueService.findById(id);
     }
 
     @PostMapping
-    @Transactional
-    public ResponseEntity<MovimentacaoEstoque> createmovimentacaoEstoque(@RequestBody MovimentacaoEstoque movimentacaoEstoqueForm) {
-        MovimentacaoEstoque movimentacaoEstoque = movimentacaoEstoqueRepository.save(movimentacaoEstoqueForm);
-        return ResponseEntity.ok(movimentacaoEstoque);
+    @ResponseBody
+    public ResponseEntity<MovimentacaoEstoque> createmovimentacaoEstoque(@RequestBody MovimentacaoEstoqueDTO movimentacaoEstoqueForm) {
+        return movimentacaoEstoqueService.save(movimentacaoEstoqueForm.dtoToMovimentacaoEstoque());
     }
 
-    @PutMapping
-    @Transactional
-    public ResponseEntity<MovimentacaoEstoque> updatemovimentacaoEstoque(@PathParam("id") Long id, @RequestBody MovimentacaoEstoque movimentacaoEstoqueForm) {
-        Optional<MovimentacaoEstoque> movimentacaoEstoqueFromDb = movimentacaoEstoqueRepository.findById(id);
-
-        if (movimentacaoEstoqueFromDb.isPresent()) {
-            MovimentacaoEstoque movimentacaoEstoque = movimentacaoEstoqueRepository.save(movimentacaoEstoqueFromDb.get());
-            return ResponseEntity.ok(movimentacaoEstoque);
-        }
-        return ResponseEntity.notFound().build();
+    @PutMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<MovimentacaoEstoque> updatemovimentacaoEstoque(@PathVariable Long id, @RequestBody MovimentacaoEstoqueDTO movimentacaoEstoqueForm) {
+        return movimentacaoEstoqueService.updateById(id, movimentacaoEstoqueForm.dtoToMovimentacaoEstoque());
     }
 
-    @DeleteMapping
-    @Transactional
-    public ResponseEntity<Object> deletemovimentacaoEstoque(@PathParam("id") Long id) {
-        Optional<MovimentacaoEstoque> movimentacaoEstoqueFromDb = movimentacaoEstoqueRepository.findById(id);
-
-        if (movimentacaoEstoqueFromDb.isPresent()) {
-            movimentacaoEstoqueRepository.delete(movimentacaoEstoqueFromDb.get());
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<MovimentacaoEstoque> deletemovimentacaoEstoque(@PathVariable Long id) {
+        return movimentacaoEstoqueService.deleteById(id);
     }
 }

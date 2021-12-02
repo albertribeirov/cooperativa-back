@@ -30,6 +30,11 @@ public class Log implements Serializable {
     public Log() {
     }
 
+    public Log(String mensagem, TipoMensagem tipoMensagem) {
+        this.mensagem = mensagem;
+        this.tipoMensagem = tipoMensagem;
+    }
+
     public Log(LocalDateTime data, TipoMensagem tipoMensagem, String mensagem) {
         this.data = data;
         this.tipoMensagem = tipoMensagem;

@@ -36,6 +36,16 @@ public class Endereco implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
+    public Endereco() {
+    }
+
+    public Endereco(String ruaComNumero, String bairro, String cidade, String cep) {
+        this.ruaComNumero = ruaComNumero;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.cep = cep;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

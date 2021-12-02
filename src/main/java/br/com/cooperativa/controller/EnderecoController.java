@@ -1,57 +1,53 @@
 package br.com.cooperativa.controller;
 
+import br.com.cooperativa.dto.EnderecoDTO;
 import br.com.cooperativa.model.Endereco;
-import br.com.cooperativa.repository.EnderecoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.cooperativa.service.EnderecoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
-import javax.websocket.server.PathParam;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/endereco")
 @CrossOrigin("localhost:3000")
 public class EnderecoController {
 
-    @Autowired
-    private EnderecoRepository cooperadoRepository;
+    private final EnderecoService enderecoService;
+
+    public EnderecoController(EnderecoService enderecoService) {
+        this.enderecoService = enderecoService;
+    }
 
     @GetMapping
-    public List<Endereco> getEndereco() {
-        return cooperadoRepository.findAll();
+    @ResponseBody
+    public ResponseEntity<List<Endereco>> getAll() {
+        return enderecoService.findAll();
     }
+
+    @GetMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<Endereco> getEndereco(@PathVariable Long id){
+        return enderecoService.findById(id);
+    }
+
 
     @PostMapping
-    @Transactional
-    public ResponseEntity<Endereco> createEndereco(@RequestBody Endereco cooperadoForm) {
-        Endereco endereco = cooperadoRepository.save(cooperadoForm);
-        return ResponseEntity.ok(endereco);
+    @ResponseBody
+    public ResponseEntity<Endereco> createEndereco(@RequestBody EnderecoDTO enderecoForm) {
+        return enderecoService.save(enderecoForm.dtoToEndereco());
     }
 
-    @PutMapping
-    @Transactional
-    public ResponseEntity<Endereco> updateEndereco(@PathParam("id") Long id, @RequestBody Endereco cooperadoForm) {
-        Optional<Endereco> enderecoFromDb = cooperadoRepository.findById(id);
 
-        if (enderecoFromDb.isPresent()) {
-            Endereco endereco = cooperadoRepository.save(enderecoFromDb.get());
-            return ResponseEntity.ok(endereco);
-        }
-        return ResponseEntity.notFound().build();
+    @PutMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<Endereco> updateEndereco(@PathVariable Long id, @RequestBody EnderecoDTO enderecoForm) {
+        return enderecoService.updateById(id, enderecoForm.dtoToEndereco());
     }
 
-    @DeleteMapping
-    @Transactional
-    public ResponseEntity<Object> deleteEndereco(@PathParam("id") Long id) {
-        Optional<Endereco> enderecoFromDb = cooperadoRepository.findById(id);
-
-        if (enderecoFromDb.isPresent()) {
-            cooperadoRepository.delete(enderecoFromDb.get());
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<Endereco> deleteEndereco(@PathVariable Long id) {
+        return enderecoService.deleteById(id);
     }
 }

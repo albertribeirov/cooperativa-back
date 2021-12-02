@@ -1,7 +1,11 @@
 package br.com.cooperativa.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -28,6 +32,24 @@ public class DetalhamentoVenda implements Serializable  {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_material")
     private Material material;
+
+    @Column(name = "create_time", nullable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
+
+    @Column(name = "update_time", nullable = false)
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
+
+    public DetalhamentoVenda() {
+    }
+
+    public DetalhamentoVenda(Venda venda, Cliente cliente, TipoMaterial tipoMaterial, Material material) {
+        this.venda = venda;
+        this.cliente = cliente;
+        this.tipoMaterial = tipoMaterial;
+        this.material = material;
+    }
 
     public Long getId() {
         return id;
@@ -67,6 +89,22 @@ public class DetalhamentoVenda implements Serializable  {
 
     public void setMaterial(Material material) {
         this.material = material;
+    }
+
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
+    }
+
+    public void setCreateDateTime(LocalDateTime createDateTime) {
+        this.createDateTime = createDateTime;
+    }
+
+    public LocalDateTime getUpdateDateTime() {
+        return updateDateTime;
+    }
+
+    public void setUpdateDateTime(LocalDateTime updateDateTime) {
+        this.updateDateTime = updateDateTime;
     }
 
     @Override

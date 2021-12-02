@@ -1,57 +1,50 @@
 package br.com.cooperativa.controller;
 
+import br.com.cooperativa.dto.EstoqueDTO;
 import br.com.cooperativa.model.Estoque;
-import br.com.cooperativa.repository.EstoqueRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.cooperativa.service.EstoqueService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
-import javax.websocket.server.PathParam;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/estoque")
 @CrossOrigin("localhost:3000")
 public class EstoqueController {
 
-    @Autowired
-    private EstoqueRepository estoqueRepository;
+    private final EstoqueService estoqueService ;
+
+    public EstoqueController(EstoqueService estoqueService) {
+        this.estoqueService = estoqueService;
+    }
 
     @GetMapping
-    public List<Estoque> getEstoque() {
-        return estoqueRepository.findAll();
+    @ResponseBody
+    public ResponseEntity<List<Estoque>> getAll() {
+        return estoqueService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Estoque> getEstoque(@PathVariable Long id){
+        return estoqueService.findById(id);
     }
 
     @PostMapping
-    @Transactional
-    public ResponseEntity<Estoque> createEstoque(@RequestBody Estoque estoqueForm) {
-        Estoque estoque = estoqueRepository.save(estoqueForm);
-        return ResponseEntity.ok(estoque);
+    @ResponseBody
+    public ResponseEntity<Estoque> createEstoque(@RequestBody EstoqueDTO estoqueForm) {
+        return estoqueService.save(estoqueForm.dtoToEstoque());
     }
 
-    @PutMapping
-    @Transactional
-    public ResponseEntity<Estoque> updateEstoque(@PathParam("id") Long id, @RequestBody Estoque estoqueForm) {
-        Optional<Estoque> estoqueFromDb = estoqueRepository.findById(id);
-
-        if (estoqueFromDb.isPresent()) {
-            Estoque estoque = estoqueRepository.save(estoqueFromDb.get());
-            return ResponseEntity.ok(estoque);
-        }
-        return ResponseEntity.notFound().build();
+    @PutMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<Estoque> updateEstoque(@PathVariable Long id, @RequestBody EstoqueDTO estoqueForm) {
+        return estoqueService.updateById(id, estoqueForm.dtoToEstoque());
     }
 
-    @DeleteMapping
-    @Transactional
-    public ResponseEntity<Object> deleteEstoque(@PathParam("id") Long id) {
-        Optional<Estoque> estoqueFromDb = estoqueRepository.findById(id);
-
-        if (estoqueFromDb.isPresent()) {
-            estoqueRepository.delete(estoqueFromDb.get());
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<Estoque> deleteEstoque(@PathVariable Long id) {
+        return estoqueService.deleteById(id);
     }
 }

@@ -36,6 +36,11 @@ public class TipoMaterial implements Serializable {
     public TipoMaterial() {
     }
 
+    public TipoMaterial(String nome, List<Material> materiais) {
+        this.nome = nome;
+        this.materiais = materiais;
+    }
+
     public TipoMaterial(String nome) {
         this.nome = nome;
     }

@@ -45,6 +45,17 @@ public class Venda implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
+    public Venda() {
+    }
+
+    public Venda(String notaFiscal, Cliente cliente, TipoMovimentacaoEstoque tipoMovimentacaoEstoque, BigDecimal totalVenda, LocalDate dataVenda) {
+        this.notaFiscal = notaFiscal;
+        this.cliente = cliente;
+        this.tipoMovimentacaoEstoque = tipoMovimentacaoEstoque;
+        this.totalVenda = totalVenda;
+        this.dataVenda = dataVenda;
+    }
+
     public Long getId() {
         return id;
     }

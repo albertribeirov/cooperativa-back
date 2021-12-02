@@ -45,6 +45,19 @@ public class Cooperado implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
+    public Cooperado() {
+    }
+
+    public Cooperado(String nomeCompleto, String telefoneUm, String telefoneDois, Endereco endereco, String cpf, boolean ativo, String observacao) {
+        this.nomeCompleto = nomeCompleto;
+        this.telefoneUm = telefoneUm;
+        this.telefoneDois = telefoneDois;
+        this.endereco = endereco;
+        this.cpf = cpf;
+        this.ativo = ativo;
+        this.observacao = observacao;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
