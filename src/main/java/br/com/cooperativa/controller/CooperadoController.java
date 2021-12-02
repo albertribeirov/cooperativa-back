@@ -1,57 +1,49 @@
 package br.com.cooperativa.controller;
 
 import br.com.cooperativa.model.Cooperado;
-import br.com.cooperativa.repository.CooperadoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.cooperativa.service.CooperadoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
-import javax.websocket.server.PathParam;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/cooperado")
 @CrossOrigin("localhost:3000")
 public class CooperadoController {
 
-    @Autowired
-    private CooperadoRepository cooperadoRepository;
+    private final CooperadoService cooperadoService ;
 
-    @GetMapping
-    public List<Cooperado> getCooperado() {
-        return cooperadoRepository.findAll();
+    public CooperadoController(CooperadoService cooperadoService) {
+        this.cooperadoService = cooperadoService;
     }
 
-    @PostMapping
-    @Transactional
+    @GetMapping("/todos")
+    @ResponseBody
+    public ResponseEntity<List<Cooperado>> getAll() {
+        return cooperadoService.findAll();
+    }
+
+    @GetMapping("/buscar")
+    @ResponseBody
+    public ResponseEntity<Cooperado> getCooperado(@RequestParam Long id){
+        return cooperadoService.findById(id);
+    }
+
+    @PostMapping("/salvar")
     public ResponseEntity<Cooperado> createCooperado(@RequestBody Cooperado cooperadoForm) {
-        Cooperado cliente = cooperadoRepository.save(cooperadoForm);
-        return ResponseEntity.ok(cliente);
+        return cooperadoService.save(cooperadoForm);
     }
 
-    @PutMapping
-    @Transactional
-    public ResponseEntity<Cooperado> updateCooperado(@PathParam("id") Long id, @RequestBody Cooperado cooperadoForm) {
-        Optional<Cooperado> clienteFromDb = cooperadoRepository.findById(id);
-
-        if (clienteFromDb.isPresent()) {
-            Cooperado cliente = cooperadoRepository.save(clienteFromDb.get());
-            return ResponseEntity.ok(cliente);
-        }
-        return ResponseEntity.notFound().build();
+    @PutMapping("/atualizar")
+    @ResponseBody
+    public ResponseEntity<Cooperado> updateCooperado(@RequestParam Long id, @RequestBody Cooperado cooperadoForm) {
+        return cooperadoService.updateById(id, cooperadoForm);
     }
 
-    @DeleteMapping
-    @Transactional
-    public ResponseEntity<Object> deleteCooperado(@PathParam("id") Long id) {
-        Optional<Cooperado> clienteFromDb = cooperadoRepository.findById(id);
-
-        if (clienteFromDb.isPresent()) {
-            cooperadoRepository.delete(clienteFromDb.get());
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
+    @DeleteMapping("/deletar")
+    @ResponseBody
+    public ResponseEntity<Cooperado> deleteCooperado(@RequestParam Long id) {
+        return cooperadoService.deleteById(id);
     }
 }
