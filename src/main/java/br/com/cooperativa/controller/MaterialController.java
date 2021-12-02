@@ -18,33 +18,33 @@ public class MaterialController {
         this.materialService = materialService;
     }
 
-    @GetMapping("/todos")
+    @GetMapping
     @ResponseBody
     public ResponseEntity<List<Material>> getAll() {
         return materialService.findAll();
     }
 
-    @GetMapping("/buscar")
+    @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Material> getMaterial(@RequestParam Long id){
+    public ResponseEntity<Material> getMaterial(@PathVariable Long id){
         return materialService.findById(id);
     }
 
-    @PostMapping("/salvar")
+    @PostMapping
     @ResponseBody
     public ResponseEntity<Material> createMaterial(@RequestBody Material materialForm) {
         return materialService.save(materialForm);
     }
 
-    @PutMapping("/atualizar")
+    @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Material> updateMaterial(@RequestParam Long id, @RequestBody Material materialForm) {
+    public ResponseEntity<Material> updateMaterial(@PathVariable Long id, @RequestBody Material materialForm) {
         return materialService.updateById(id, materialForm);
     }
 
-    @DeleteMapping("/deletar")
+    @DeleteMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Material> deleteMaterial(@RequestParam Long id) {
+    public ResponseEntity<Material> deleteMaterial(@PathVariable Long id) {
         return materialService.deleteById(id);
     }
 }

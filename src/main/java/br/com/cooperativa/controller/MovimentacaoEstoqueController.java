@@ -18,27 +18,33 @@ public class MovimentacaoEstoqueController {
         this.movimentacaoEstoqueService = movimentacaoEstoqueService;
     }
 
-    @GetMapping("/todos")
+    @GetMapping
     @ResponseBody
     public ResponseEntity<List<MovimentacaoEstoque>> getAll() {
         return movimentacaoEstoqueService.findAll();
     }
 
-    @PostMapping("/salvar")
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MovimentacaoEstoque> getMovimentacao(@PathVariable Long id){
+        return movimentacaoEstoqueService.findById(id);
+    }
+
+    @PostMapping
     @ResponseBody
     public ResponseEntity<MovimentacaoEstoque> createmovimentacaoEstoque(@RequestBody MovimentacaoEstoque movimentacaoEstoqueForm) {
         return movimentacaoEstoqueService.save(movimentacaoEstoqueForm);
     }
 
-    @PutMapping("/atualizar")
+    @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<MovimentacaoEstoque> updatemovimentacaoEstoque(@RequestParam Long id, @RequestBody MovimentacaoEstoque movimentacaoEstoqueForm) {
+    public ResponseEntity<MovimentacaoEstoque> updatemovimentacaoEstoque(@PathVariable Long id, @RequestBody MovimentacaoEstoque movimentacaoEstoqueForm) {
         return movimentacaoEstoqueService.updateById(id, movimentacaoEstoqueForm);
     }
 
-    @DeleteMapping("/deletar")
+    @DeleteMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<MovimentacaoEstoque> deletemovimentacaoEstoque(@RequestParam Long id) {
+    public ResponseEntity<MovimentacaoEstoque> deletemovimentacaoEstoque(@PathVariable Long id) {
         return movimentacaoEstoqueService.deleteById(id);
     }
 }

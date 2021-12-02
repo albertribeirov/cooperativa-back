@@ -18,33 +18,35 @@ public class EnderecoController {
         this.enderecoService = enderecoService;
     }
 
-    @GetMapping("/todos")
+    @GetMapping
     @ResponseBody
     public ResponseEntity<List<Endereco>> getAll() {
         return enderecoService.findAll();
     }
 
-    @GetMapping("/buscar")
+    @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Endereco> getEndereco(Long id){
+    public ResponseEntity<Endereco> getEndereco(@PathVariable Long id){
         return enderecoService.findById(id);
     }
 
-    @PostMapping("/salvar")
+
+    @PostMapping
     @ResponseBody
     public ResponseEntity<Endereco> createEndereco(@RequestBody Endereco enderecoForm) {
         return enderecoService.save(enderecoForm);
     }
 
-    @PutMapping("/atualizar")
+
+    @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Endereco> updateEndereco(@RequestParam Long id, @RequestBody Endereco enderecoForm) {
+    public ResponseEntity<Endereco> updateEndereco(@PathVariable Long id, @RequestBody Endereco enderecoForm) {
         return enderecoService.updateById(id, enderecoForm);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Endereco> deleteEndereco(@RequestParam Long id) {
+    public ResponseEntity<Endereco> deleteEndereco(@PathVariable Long id) {
         return enderecoService.deleteById(id);
     }
 }

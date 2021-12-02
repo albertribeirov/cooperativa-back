@@ -18,32 +18,32 @@ public class DetalhamentoVendaController {
         this.detalhamentoVendaService = detalhamentoVendaService;
     }
 
-    @GetMapping("/todos")
+    @GetMapping
     @ResponseBody
     public ResponseEntity<List<DetalhamentoVenda>> getAll() {
         return detalhamentoVendaService.findAll();
     }
 
-    @GetMapping("/buscar")
+    @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<DetalhamentoVenda> getDetalhamento(@RequestParam Long id) {
+    public ResponseEntity<DetalhamentoVenda> getDetalhamento(@PathVariable Long id) {
         return detalhamentoVendaService.findById(id);
     }
 
-    @PostMapping("/salvar")
+    @PostMapping
     @ResponseBody
     public ResponseEntity<DetalhamentoVenda> createDetalhamentoVenda(@RequestBody DetalhamentoVenda detalhamentoForm) {
         return detalhamentoVendaService.save(detalhamentoForm);
     }
 
-    @PutMapping("/atualizar")
-    public ResponseEntity<DetalhamentoVenda> updateDetalhamentoVenda(@RequestParam Long id, @RequestBody DetalhamentoVenda detalhamentoForm) {
+    @PutMapping("/{id}")
+    public ResponseEntity<DetalhamentoVenda> updateDetalhamentoVenda(@PathVariable Long id, @RequestBody DetalhamentoVenda detalhamentoForm) {
         return detalhamentoVendaService.updateById(id, detalhamentoForm);
     }
 
-    @DeleteMapping("/deletar")
+    @DeleteMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<DetalhamentoVenda> deleteDetalhamentoVenda(@RequestParam Long id) {
+    public ResponseEntity<DetalhamentoVenda> deleteDetalhamentoVenda(@PathVariable Long id) {
         return detalhamentoVendaService.deleteById(id);
     }
 }

@@ -18,32 +18,32 @@ public class EstoqueController {
         this.estoqueService = estoqueService;
     }
 
-    @GetMapping("/todos")
+    @GetMapping
     @ResponseBody
     public ResponseEntity<List<Estoque>> getAll() {
         return estoqueService.findAll();
     }
 
-    @GetMapping("/buscar")
-    public ResponseEntity<Estoque> getEstoque(@RequestParam Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity<Estoque> getEstoque(@PathVariable Long id){
         return estoqueService.findById(id);
     }
 
-    @PostMapping("/salvar")
+    @PostMapping
     @ResponseBody
     public ResponseEntity<Estoque> createEstoque(@RequestBody Estoque estoqueForm) {
         return estoqueService.save(estoqueForm);
     }
 
-    @PutMapping("/atualizar")
+    @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Estoque> updateEstoque(@RequestParam Long id, @RequestBody Estoque estoqueForm) {
+    public ResponseEntity<Estoque> updateEstoque(@PathVariable Long id, @RequestBody Estoque estoqueForm) {
         return estoqueService.updateById(id, estoqueForm);
     }
 
-    @DeleteMapping("/deletar")
+    @DeleteMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Estoque> deleteEstoque(@RequestParam Long id) {
+    public ResponseEntity<Estoque> deleteEstoque(@PathVariable Long id) {
         return estoqueService.deleteById(id);
     }
 }

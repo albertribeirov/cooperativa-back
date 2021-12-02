@@ -18,32 +18,32 @@ public class CooperadoController {
         this.cooperadoService = cooperadoService;
     }
 
-    @GetMapping("/todos")
+    @GetMapping
     @ResponseBody
     public ResponseEntity<List<Cooperado>> getAll() {
         return cooperadoService.findAll();
     }
 
-    @GetMapping("/buscar")
+    @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Cooperado> getCooperado(@RequestParam Long id){
+    public ResponseEntity<Cooperado> getCooperado(@PathVariable Long id){
         return cooperadoService.findById(id);
     }
 
-    @PostMapping("/salvar")
+    @PostMapping
     public ResponseEntity<Cooperado> createCooperado(@RequestBody Cooperado cooperadoForm) {
         return cooperadoService.save(cooperadoForm);
     }
 
-    @PutMapping("/atualizar")
+    @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Cooperado> updateCooperado(@RequestParam Long id, @RequestBody Cooperado cooperadoForm) {
+    public ResponseEntity<Cooperado> updateCooperado(@PathVariable Long id, @RequestBody Cooperado cooperadoForm) {
         return cooperadoService.updateById(id, cooperadoForm);
     }
 
-    @DeleteMapping("/deletar")
+    @DeleteMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Cooperado> deleteCooperado(@RequestParam Long id) {
+    public ResponseEntity<Cooperado> deleteCooperado(@PathVariable Long id) {
         return cooperadoService.deleteById(id);
     }
 }

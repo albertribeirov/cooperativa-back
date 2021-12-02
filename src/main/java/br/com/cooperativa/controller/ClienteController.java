@@ -19,32 +19,31 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    @GetMapping("/todos")
+    @GetMapping
     @ResponseBody
     public ResponseEntity<List<Cliente>> getAll() {
         return clienteService.findAll();
     }
 
-    @GetMapping("/buscar")
+    @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Cliente> getCliente(@RequestParam Long id) {
+    public ResponseEntity<Cliente> getCliente(@PathVariable Long id) {
         return clienteService.findById(id);
     }
 
-
-    @PostMapping("/salvar")
+    @PostMapping
     @ResponseBody
     public ResponseEntity<Cliente> createCliente(@RequestBody Cliente clienteForm) {
         return clienteService.save(clienteForm);
     }
 
-    @PutMapping("/atualizar")
-    public ResponseEntity<Cliente> updateCliente(@RequestParam Long id, @RequestBody Cliente clienteForm) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> updateCliente(@PathVariable Long id, @RequestBody Cliente clienteForm) {
         return clienteService.updateByID(id, clienteForm);
     }
 
-    @DeleteMapping("/deletar")
-    public ResponseEntity<Cliente> deleteCliente(@RequestParam Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Cliente> deleteCliente(@PathVariable Long id) {
         return clienteService.deleteByID(id);
     }
 }
