@@ -1,5 +1,6 @@
 package br.com.cooperativa.controller;
 
+import br.com.cooperativa.dto.DetalhamentoVendaDTO;
 import br.com.cooperativa.model.DetalhamentoVenda;
 import br.com.cooperativa.service.DetalhamentoVendaService;
 import org.springframework.http.ResponseEntity;
@@ -32,13 +33,13 @@ public class DetalhamentoVendaController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<DetalhamentoVenda> createDetalhamentoVenda(@RequestBody DetalhamentoVenda detalhamentoForm) {
-        return detalhamentoVendaService.save(detalhamentoForm);
+    public ResponseEntity<DetalhamentoVenda> createDetalhamentoVenda(@RequestBody DetalhamentoVendaDTO detalhamentoForm) {
+        return detalhamentoVendaService.save(detalhamentoForm.dtoToDetalhamentoVenda());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DetalhamentoVenda> updateDetalhamentoVenda(@PathVariable Long id, @RequestBody DetalhamentoVenda detalhamentoForm) {
-        return detalhamentoVendaService.updateById(id, detalhamentoForm);
+    public ResponseEntity<DetalhamentoVenda> updateDetalhamentoVenda(@PathVariable Long id, @RequestBody DetalhamentoVendaDTO detalhamentoForm) {
+        return detalhamentoVendaService.updateById(id, detalhamentoForm.dtoToDetalhamentoVenda());
     }
 
     @DeleteMapping("/{id}")

@@ -1,5 +1,6 @@
 package br.com.cooperativa.controller;
 
+import br.com.cooperativa.dto.CooperadoDTO;
 import br.com.cooperativa.model.Cooperado;
 import br.com.cooperativa.service.CooperadoService;
 import org.springframework.http.ResponseEntity;
@@ -31,14 +32,14 @@ public class CooperadoController {
     }
 
     @PostMapping
-    public ResponseEntity<Cooperado> createCooperado(@RequestBody Cooperado cooperadoForm) {
-        return cooperadoService.save(cooperadoForm);
+    public ResponseEntity<Cooperado> createCooperado(@RequestBody CooperadoDTO cooperadoForm) {
+        return cooperadoService.save(cooperadoForm.dtoToCooperado());
     }
 
     @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Cooperado> updateCooperado(@PathVariable Long id, @RequestBody Cooperado cooperadoForm) {
-        return cooperadoService.updateById(id, cooperadoForm);
+    public ResponseEntity<Cooperado> updateCooperado(@PathVariable Long id, @RequestBody CooperadoDTO cooperadoForm) {
+        return cooperadoService.updateById(id, cooperadoForm.dtoToCooperado());
     }
 
     @DeleteMapping("/{id}")

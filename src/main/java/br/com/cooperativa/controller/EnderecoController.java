@@ -1,5 +1,6 @@
 package br.com.cooperativa.controller;
 
+import br.com.cooperativa.dto.EnderecoDTO;
 import br.com.cooperativa.model.Endereco;
 import br.com.cooperativa.service.EnderecoService;
 import org.springframework.http.ResponseEntity;
@@ -33,15 +34,15 @@ public class EnderecoController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Endereco> createEndereco(@RequestBody Endereco enderecoForm) {
-        return enderecoService.save(enderecoForm);
+    public ResponseEntity<Endereco> createEndereco(@RequestBody EnderecoDTO enderecoForm) {
+        return enderecoService.save(enderecoForm.dtoToEndereco());
     }
 
 
     @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Endereco> updateEndereco(@PathVariable Long id, @RequestBody Endereco enderecoForm) {
-        return enderecoService.updateById(id, enderecoForm);
+    public ResponseEntity<Endereco> updateEndereco(@PathVariable Long id, @RequestBody EnderecoDTO enderecoForm) {
+        return enderecoService.updateById(id, enderecoForm.dtoToEndereco());
     }
 
     @DeleteMapping("/{id}")

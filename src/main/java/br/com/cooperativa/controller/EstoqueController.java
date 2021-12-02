@@ -1,5 +1,6 @@
 package br.com.cooperativa.controller;
 
+import br.com.cooperativa.dto.EstoqueDTO;
 import br.com.cooperativa.model.Estoque;
 import br.com.cooperativa.service.EstoqueService;
 import org.springframework.http.ResponseEntity;
@@ -31,14 +32,14 @@ public class EstoqueController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Estoque> createEstoque(@RequestBody Estoque estoqueForm) {
-        return estoqueService.save(estoqueForm);
+    public ResponseEntity<Estoque> createEstoque(@RequestBody EstoqueDTO estoqueForm) {
+        return estoqueService.save(estoqueForm.dtoToEstoque());
     }
 
     @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Estoque> updateEstoque(@PathVariable Long id, @RequestBody Estoque estoqueForm) {
-        return estoqueService.updateById(id, estoqueForm);
+    public ResponseEntity<Estoque> updateEstoque(@PathVariable Long id, @RequestBody EstoqueDTO estoqueForm) {
+        return estoqueService.updateById(id, estoqueForm.dtoToEstoque());
     }
 
     @DeleteMapping("/{id}")

@@ -1,6 +1,7 @@
 package br.com.cooperativa.controller;
 
 
+import br.com.cooperativa.dto.ClienteDTO;
 import br.com.cooperativa.model.Cliente;
 import br.com.cooperativa.service.ClienteService;
 import org.springframework.http.ResponseEntity;
@@ -33,13 +34,13 @@ public class ClienteController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Cliente> createCliente(@RequestBody Cliente clienteForm) {
-        return clienteService.save(clienteForm);
+    public ResponseEntity<Cliente> createCliente(@RequestBody ClienteDTO clienteForm) {
+        return clienteService.save(clienteForm.dtoToCliente());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> updateCliente(@PathVariable Long id, @RequestBody Cliente clienteForm) {
-        return clienteService.updateByID(id, clienteForm);
+    public ResponseEntity<Cliente> updateCliente(@PathVariable Long id, @RequestBody ClienteDTO clienteForm) {
+        return clienteService.updateByID(id, clienteForm.dtoToCliente());
     }
 
     @DeleteMapping("/{id}")

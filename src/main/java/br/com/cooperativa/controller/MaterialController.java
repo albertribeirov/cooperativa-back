@@ -1,5 +1,6 @@
 package br.com.cooperativa.controller;
 
+import br.com.cooperativa.dto.MaterialDTO;
 import br.com.cooperativa.model.Material;
 import br.com.cooperativa.service.MaterialService;
 import org.springframework.http.ResponseEntity;
@@ -32,14 +33,14 @@ public class MaterialController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Material> createMaterial(@RequestBody Material materialForm) {
-        return materialService.save(materialForm);
+    public ResponseEntity<Material> createMaterial(@RequestBody MaterialDTO materialForm) {
+        return materialService.save(materialForm.dtoToMaterial());
     }
 
     @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Material> updateMaterial(@PathVariable Long id, @RequestBody Material materialForm) {
-        return materialService.updateById(id, materialForm);
+    public ResponseEntity<Material> updateMaterial(@PathVariable Long id, @RequestBody MaterialDTO materialForm) {
+        return materialService.updateById(id, materialForm.dtoToMaterial());
     }
 
     @DeleteMapping("/{id}")
