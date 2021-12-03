@@ -2,18 +2,30 @@ package br.com.cooperativa.dto;
 
 import br.com.cooperativa.model.Cliente;
 import br.com.cooperativa.model.Endereco;
+import org.hibernate.validator.constraints.br.CPF;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class ClienteDTO implements Serializable {
 
+    @NotEmpty(message = "Inserir um nome é obrigatório.")
     private String nome;
+
+    @NotEmpty(message = "Inserir um telefone principal é obrigatório.")
     private String telefoneUm;
+
     private String telefoneDois;
+
     private Endereco endereco = new Endereco();
+
+    @NotEmpty(message = "Inserir um cpf é obrigatório.")
+    @CPF(message = "Insira um cpf válido.")
     private String cpf_cnpj;
+
     private boolean ativo;
+
     private String observacao;
 
     public ClienteDTO() {
