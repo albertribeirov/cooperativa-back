@@ -1,4 +1,4 @@
-package br.com.cooperativa.security.config;
+package br.com.cooperativa.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
