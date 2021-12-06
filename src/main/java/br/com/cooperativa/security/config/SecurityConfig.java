@@ -2,7 +2,6 @@ package br.com.cooperativa.security.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -11,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    // Ainda não foi sobrescrito o método de autenticação, somente o de acesso aos endpoints
+    // Authentication method has not yet been replaced, yet...
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
