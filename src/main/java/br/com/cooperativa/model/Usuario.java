@@ -72,11 +72,11 @@ public class Usuario  {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return Objects.equals(id, usuario.id) && username.equals(usuario.username) && password.equals(usuario.password) && email.equals(usuario.email);
+        return username.equals(usuario.username) && email.equals(usuario.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, email);
+        return Objects.hash(username, email);
     }
 }
