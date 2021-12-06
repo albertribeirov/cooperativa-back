@@ -2,8 +2,10 @@ package br.com.cooperativa.model;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -18,9 +20,11 @@ public class Cliente implements Serializable  {
     private Long id;
 
     @Column(name = "nome", length = 100, nullable = false)
+    @NotEmpty(message = "Inserir um nome é obrigatório.")
     private String nome;
 
     @Column(name = "telefone_um", length = 11)
+    @NotEmpty(message = "Inserir o telefone principal é obrigatório.")
     private String telefoneUm;
 
     @Column(name = "telefone_dois", length = 11)
@@ -30,6 +34,8 @@ public class Cliente implements Serializable  {
     private Endereco endereco = new Endereco();
 
     @Column(length = 14)
+    @NotEmpty(message = "Inserir um cpf é obrigatório.")
+    @CPF
     private String cpf_cnpj;
 
     @Column(name = "ativo", nullable = false)

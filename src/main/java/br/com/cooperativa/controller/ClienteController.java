@@ -7,6 +7,7 @@ import br.com.cooperativa.service.ClienteService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -34,12 +35,12 @@ public class ClienteController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Cliente> createCliente(@RequestBody ClienteDTO clienteForm) {
+    public ResponseEntity<Cliente> createCliente(@RequestBody @Valid ClienteDTO clienteForm) {
         return clienteService.save(clienteForm.dtoToCliente());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> updateCliente(@PathVariable Long id, @RequestBody ClienteDTO clienteForm) {
+    public ResponseEntity<Cliente> updateCliente(@PathVariable Long id, @RequestBody @Valid ClienteDTO clienteForm) {
         return clienteService.updateByID(id, clienteForm.dtoToCliente());
     }
 
