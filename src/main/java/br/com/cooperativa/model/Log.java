@@ -3,7 +3,13 @@ package br.com.cooperativa.model;
 import br.com.cooperativa.enumeration.TipoMensagem;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;

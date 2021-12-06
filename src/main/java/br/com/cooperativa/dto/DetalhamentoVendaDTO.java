@@ -1,6 +1,9 @@
 package br.com.cooperativa.dto;
 
-import br.com.cooperativa.model.*;
+import br.com.cooperativa.model.Cliente;
+import br.com.cooperativa.model.DetalhamentoVenda;
+import br.com.cooperativa.model.Material;
+import br.com.cooperativa.model.Venda;
 
 import java.io.Serializable;
 import java.util.Objects;
