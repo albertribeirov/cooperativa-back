@@ -20,7 +20,7 @@ public class DetalhamentoVendaDTO implements Serializable {
 
     // Transformation DTO -> DetalhamentoVenda
     public DetalhamentoVenda dtoToDetalhamentoVenda(){
-        return new DetalhamentoVenda(this.venda, this.cliente, this.tipoMaterial, this.material);
+        return new DetalhamentoVenda(this.venda, this.cliente, this.tipoMaterial.dtoToTipoMaterial(), this.material);
     }
 
     public Venda getVenda() {
