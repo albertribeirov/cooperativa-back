@@ -24,7 +24,7 @@ public class Material implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome")
+    @Column(name = "nome", unique = true)
     private String nome;
 
     @ManyToOne(optional = false)

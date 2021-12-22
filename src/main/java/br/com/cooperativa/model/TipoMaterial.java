@@ -25,7 +25,7 @@ public class TipoMaterial implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome")
+    @Column(name = "nome", unique = true)
     private String nome;
 
     @OneToMany(mappedBy = "tipoMaterial")
