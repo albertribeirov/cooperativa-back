@@ -1,7 +1,10 @@
 package br.com.cooperativa.service;
 
 import br.com.cooperativa.model.Material;
+import br.com.cooperativa.repository.EstoqueRepository;
 import br.com.cooperativa.repository.MaterialRepository;
+import br.com.cooperativa.repository.MovimentacaoEstoqueRepository;
+import br.com.cooperativa.rn.RNInserirMaterialAndEstoqueInicialZerado;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +20,25 @@ public class MaterialService {
     private static final Logger logger = LoggerFactory.getLogger(ClienteService.class);
 
     private final MaterialRepository materialRepository;
+    private final EstoqueRepository estoqueRepository;
+    private final MovimentacaoEstoqueRepository movimentacaoEstoqueRepository;
 
-    public MaterialService(MaterialRepository materialRepository) {
+    public MaterialService(MaterialRepository materialRepository, EstoqueRepository estoqueRepository, MovimentacaoEstoqueRepository movimentacaoEstoqueRepository) {
         this.materialRepository = materialRepository;
+        this.estoqueRepository = estoqueRepository;
+        this.movimentacaoEstoqueRepository = movimentacaoEstoqueRepository;
     }
 
     @Transactional
     public ResponseEntity<Material> save(Material material){
-        materialRepository.save(material);
-        logger.info("Salvo com sucesso.");
-        return ResponseEntity.ok().build();
+        try {
+            RNInserirMaterialAndEstoqueInicialZerado.getInstance().inserir(material, estoqueRepository, materialRepository, movimentacaoEstoqueRepository);
+            logger.info("Salvo com sucesso.");
+            return ResponseEntity.ok().build();
+        } catch (Exception exception) {
+            logger.error("Erro ao salvar material e/ou estoque", exception);
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @Transactional
