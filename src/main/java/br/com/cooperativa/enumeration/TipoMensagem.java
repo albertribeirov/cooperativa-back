@@ -1,5 +1,8 @@
 package br.com.cooperativa.enumeration;
 
+import lombok.Getter;
+
+@Getter
 public enum TipoMensagem {
     INFO(1), ERRO(2);
 
@@ -9,7 +12,4 @@ public enum TipoMensagem {
         this.valor = valor;
     }
 
-    public int getValor() {
-        return valor;
-    }
 }
