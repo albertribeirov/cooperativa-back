@@ -21,11 +21,11 @@ public class RNInserirQuantidadeMaterialEmEstoque {
 
     public void inserir(Estoque estoque,
                         EstoqueRepository estoqueRepository,
-                        MovimentacaoEstoqueRepository movimentacaoEstoqueRepository) throws Exception {
+                        MovimentacaoEstoqueRepository movimentacaoEstoqueRepository) {
 
         Estoque estoqueFromDb;
 
-        List<Estoque> estoques = estoqueRepository.consultaEstoquePorIdMaterialAndIdTipoMaterial(
+        List<Estoque> estoques = estoqueRepository.consultarEstoquePorIdMaterialAndIdTipoMaterial(
                 estoque.getMaterial().getId(),
                 estoque.getTipoMaterial().getId()
         );

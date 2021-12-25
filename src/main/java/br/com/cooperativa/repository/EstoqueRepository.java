@@ -10,7 +10,10 @@ import java.util.List;
 @Repository
 public interface EstoqueRepository extends JpaRepository<Estoque, Long> {
 
-    @Query("from Estoque e WHERE e.material.id = :idMaterial AND e.tipoMaterial.id = :idTipoMaterial")
-    List<Estoque> consultaEstoquePorIdMaterialAndIdTipoMaterial(Long idMaterial, Long idTipoMaterial);
+    @Query("FROM Estoque e WHERE e.material.id = :idMaterial AND e.tipoMaterial.id = :idTipoMaterial")
+    List<Estoque> consultarEstoquePorIdMaterialAndIdTipoMaterial(Long idMaterial, Long idTipoMaterial);
+
+    @Query("FROM Estoque e WHERE e.material.id = :id")
+    Estoque consultarEstoquePorIdMaterial(Long id);
 
 }
