@@ -28,8 +28,8 @@ public class MovimentacaoEstoque implements Serializable {
     @Column
     private Long id;
 
-    @Column
-    private Integer quantidade;
+    @Column(name = "quantidade", nullable = false)
+    private Integer quantidadeEmKg;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "tipo_movimentacao", nullable = false)
@@ -59,12 +59,11 @@ public class MovimentacaoEstoque implements Serializable {
 
     }
 
-    public MovimentacaoEstoque(Integer quantidade, TipoMovimentacaoEstoque tipoMovimentacaoEstoque, TipoMaterial tipoMaterial, Material material, LocalDate dataMovimentacao) {
-        this.quantidade = quantidade;
+    public MovimentacaoEstoque(Integer quantidadeEmKg, TipoMovimentacaoEstoque tipoMovimentacaoEstoque, TipoMaterial tipoMaterial, Material material) {
+        this.quantidadeEmKg = quantidadeEmKg;
         this.tipoMovimentacaoEstoque = tipoMovimentacaoEstoque;
         this.tipoMaterial = tipoMaterial;
         this.material = material;
-        this.dataMovimentacao = dataMovimentacao;
     }
 
     public Long getId() {
@@ -75,12 +74,12 @@ public class MovimentacaoEstoque implements Serializable {
         this.id = id;
     }
 
-    public Integer getQuantidade() {
-        return quantidade;
+    public Integer getQuantidadeEmKg() {
+        return quantidadeEmKg;
     }
 
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
+    public void setQuantidadeEmKg(Integer quantidade) {
+        this.quantidadeEmKg = quantidade;
     }
 
     public TipoMaterial getTipoMaterial() {
@@ -135,7 +134,7 @@ public class MovimentacaoEstoque implements Serializable {
     public String toString() {
         return "MovimentacaoEstoque{" +
                 "id=" + id +
-                ", quantidade=" + quantidade +
+                ", quantidade=" + quantidadeEmKg +
                 ", tipoMovimentacaoEstoque=" + tipoMovimentacaoEstoque +
                 ", tipoMaterial=" + tipoMaterial.getNome() +
                 ", material=" + material.getNome() +

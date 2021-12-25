@@ -8,11 +8,9 @@ import br.com.cooperativa.repository.EstoqueRepository;
 import br.com.cooperativa.repository.MaterialRepository;
 import br.com.cooperativa.repository.MovimentacaoEstoqueRepository;
 
-import java.time.LocalDate;
-
 public class RNInserirMaterialAndEstoqueInicialZerado {
 
-    private static RNInserirMaterialAndEstoqueInicialZerado regraDeNegocio = new RNInserirMaterialAndEstoqueInicialZerado();
+    private static RNInserirMaterialAndEstoqueInicialZerado regraDeNegocio;
 
     public static RNInserirMaterialAndEstoqueInicialZerado getInstance() {
         if (regraDeNegocio == null) {
@@ -27,7 +25,7 @@ public class RNInserirMaterialAndEstoqueInicialZerado {
                         MovimentacaoEstoqueRepository movimentacaoEstoqueRepository) {
 
         Estoque estoque = new Estoque(0, material.getTipoMaterial(), material);
-        MovimentacaoEstoque movimentacaoEstoque = new MovimentacaoEstoque(0, TipoMovimentacaoEstoque.ENTRADA, material.getTipoMaterial(), material, LocalDate.now());
+        MovimentacaoEstoque movimentacaoEstoque = new MovimentacaoEstoque(0, TipoMovimentacaoEstoque.ENTRADA, material.getTipoMaterial(), material);
 
         materialRepository.save(material);
         movimentacaoEstoqueRepository.save(movimentacaoEstoque);
