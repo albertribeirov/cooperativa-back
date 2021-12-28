@@ -2,6 +2,8 @@ package br.com.cooperativa.service;
 
 import br.com.cooperativa.model.Estoque;
 import br.com.cooperativa.repository.EstoqueRepository;
+import br.com.cooperativa.repository.MovimentacaoEstoqueRepository;
+import br.com.cooperativa.rn.RNInserirQuantidadeMaterialEmEstoque;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -17,17 +19,24 @@ public class EstoqueService {
     private static final Logger logger = LoggerFactory.getLogger(ClienteService.class);
 
     private final EstoqueRepository estoqueRepository;
+    private final MovimentacaoEstoqueRepository movimentacaoEstoqueRepository;
 
     // Dependency Injection
-    public EstoqueService(EstoqueRepository estoqueRepository) {
+    public EstoqueService(EstoqueRepository estoqueRepository, MovimentacaoEstoqueRepository movimentacaoEstoqueRepository) {
         this.estoqueRepository = estoqueRepository;
+        this.movimentacaoEstoqueRepository = movimentacaoEstoqueRepository;
     }
 
     @Transactional
     public ResponseEntity<Estoque> save(Estoque estoque) {
-        estoqueRepository.save(estoque);
-        logger.info("Estoque salvo com sucesso.");
-        return ResponseEntity.ok().build();
+        try {
+            RNInserirQuantidadeMaterialEmEstoque.getInstance().inserir(estoque, estoqueRepository, movimentacaoEstoqueRepository);
+            logger.info("Estoque salvo com sucesso.");
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            // TODO Verificar com o front o tratamento da mensagem de erro
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @Transactional
@@ -63,7 +72,7 @@ public class EstoqueService {
 
     public ResponseEntity<Estoque> findById(Number id) {
         logger.info("Procurando estoque com id: " + id);
-        if (!estoqueRepository.existsById((Long) id)){
+        if (!estoqueRepository.existsById((Long) id)) {
             logger.warn("Não encontrado");
             return ResponseEntity.notFound().build();
         }
