@@ -1,7 +1,9 @@
 package br.com.cooperativa.model;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,11 +14,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-public class Estoque implements Serializable {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Estoque extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +29,7 @@ public class Estoque implements Serializable {
     private Long id;
 
     @Column(name = "quantidade")
-    private Integer quantidadeEmKg;
+    private Double quantidadeEmKg;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_tipo_material")
@@ -33,77 +38,6 @@ public class Estoque implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_material")
     private Material material;
-
-    @Column(name = "create_time", nullable = false, updatable = false)
-    @CreationTimestamp
-    private LocalDateTime createDateTime;
-
-    @Column(name = "update_time", nullable = false)
-    @UpdateTimestamp
-    private LocalDateTime updateDateTime;
-
-    public Estoque() {
-
-    }
-
-    public Estoque(Integer quantidadeEmKg, Material material) {
-        this.quantidadeEmKg = quantidadeEmKg;
-        this.material = material;
-    }
-
-    public Estoque(Integer quantidadeEmKg, TipoMaterial tipoMaterial, Material material) {
-        this.quantidadeEmKg = quantidadeEmKg;
-        this.tipoMaterial = tipoMaterial;
-        this.material = material;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Integer getQuantidadeEmKg() {
-        return quantidadeEmKg;
-    }
-
-    public void setQuantidadeEmKg(Integer quantidadeEmKg) {
-        this.quantidadeEmKg = quantidadeEmKg;
-    }
-
-    public TipoMaterial getTipoMaterial() {
-        return tipoMaterial;
-    }
-
-    public void setTipoMaterial(TipoMaterial tipoMaterial) {
-        this.tipoMaterial = tipoMaterial;
-    }
-
-    public Material getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(Material material) {
-        this.material = material;
-    }
-
-    public LocalDateTime getCreateDateTime() {
-        return createDateTime;
-    }
-
-    public void setCreateDateTime(LocalDateTime createDateTime) {
-        this.createDateTime = createDateTime;
-    }
-
-    public LocalDateTime getUpdateDateTime() {
-        return updateDateTime;
-    }
-
-    public void setUpdateDateTime(LocalDateTime updateDateTime) {
-        this.updateDateTime = updateDateTime;
-    }
 
     @Override
     public boolean equals(Object o) {

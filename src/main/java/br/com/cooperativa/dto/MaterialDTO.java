@@ -2,34 +2,25 @@ package br.com.cooperativa.dto;
 
 import br.com.cooperativa.model.Material;
 import br.com.cooperativa.model.TipoMaterial;
+import br.com.cooperativa.utils.TypeUtils;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class MaterialDTO implements Serializable {
 
     private String nome;
     private TipoMaterial tipoMaterial ;
 
-    public MaterialDTO() {
-    }
-
     public Material dtoToMaterial(){
-        return new Material(this.nome, this.tipoMaterial);
+        return TypeUtils.parseToEntity(this, Material.class);
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public TipoMaterial getTipoMaterial() {
-        return tipoMaterial;
-    }
-
-    public void setTipoMaterial(TipoMaterial tipoMaterial) {
-        this.tipoMaterial = tipoMaterial;
-    }
 }

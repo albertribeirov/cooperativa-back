@@ -1,7 +1,9 @@
 package br.com.cooperativa.model;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,14 +13,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "tipo_material")
-public class TipoMaterial implements Serializable {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class TipoMaterial extends BaseEntity implements Serializable {
 
     @Id
     @Column(name = "id")
@@ -30,71 +35,6 @@ public class TipoMaterial implements Serializable {
 
     @OneToMany(mappedBy = "tipoMaterial")
     private List<Material> materiais = new ArrayList<>();
-
-    @Column(name = "create_time", nullable = false, updatable = false)
-    @CreationTimestamp
-    private LocalDateTime createDateTime;
-
-    @Column(name = "update_time", nullable = false)
-    @UpdateTimestamp
-    private LocalDateTime updateDateTime;
-
-    public TipoMaterial() {
-    }
-
-    public TipoMaterial(String nome, List<Material> materiais) {
-        this.nome = nome;
-        this.materiais = materiais;
-    }
-
-    public TipoMaterial(String nome) {
-        this.nome = nome;
-    }
-
-    public TipoMaterial(Long id, String nome) {
-        this.id = id;
-        this.nome = nome;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public List<Material> getMateriais() {
-        return materiais;
-    }
-
-    public void setMateriais(List<Material> materiais) {
-        this.materiais = materiais;
-    }
-
-    public LocalDateTime getCreateDateTime() {
-        return createDateTime;
-    }
-
-    public void setCreateDateTime(LocalDateTime createDateTime) {
-        this.createDateTime = createDateTime;
-    }
-
-    public LocalDateTime getUpdateDateTime() {
-        return updateDateTime;
-    }
-
-    public void setUpdateDateTime(LocalDateTime updateDateTime) {
-        this.updateDateTime = updateDateTime;
-    }
 
     @Override
     public boolean equals(Object o) {

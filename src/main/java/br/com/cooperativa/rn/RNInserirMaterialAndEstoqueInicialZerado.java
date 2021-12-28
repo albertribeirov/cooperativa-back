@@ -24,8 +24,20 @@ public class RNInserirMaterialAndEstoqueInicialZerado {
                         MaterialRepository materialRepository,
                         MovimentacaoEstoqueRepository movimentacaoEstoqueRepository) {
 
-        Estoque estoque = new Estoque(0, material.getTipoMaterial(), material);
-        MovimentacaoEstoque movimentacaoEstoque = new MovimentacaoEstoque(0, TipoMovimentacaoEstoque.ENTRADA, material.getTipoMaterial(), material);
+        Estoque estoque = Estoque.builder()
+                .quantidadeEmKg(0D)
+                .tipoMaterial(material.getTipoMaterial())
+                .material(material)
+                .build();
+
+        MovimentacaoEstoque movimentacaoEstoque = MovimentacaoEstoque.builder()
+                .quantidade(0D)
+                .tipoMovimentacaoEstoque(TipoMovimentacaoEstoque.ENTRADA)
+                .tipoMaterial(material.getTipoMaterial())
+                .material(material)
+                .dataMovimentacao(LocalDate.now())
+                .build();
+
 
         materialRepository.save(material);
         movimentacaoEstoqueRepository.save(movimentacaoEstoque);

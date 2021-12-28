@@ -2,12 +2,21 @@ package br.com.cooperativa.dto;
 
 import br.com.cooperativa.model.Cliente;
 import br.com.cooperativa.model.Endereco;
+import br.com.cooperativa.utils.TypeUtils;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ClienteDTO implements Serializable {
 
     @NotEmpty(message = "Inserir um nome é obrigatório.")
@@ -28,68 +37,9 @@ public class ClienteDTO implements Serializable {
 
     private String observacao;
 
-    public ClienteDTO() {
-    }
-
     // Transformation DTO -> Original Model
     public Cliente dtoToCliente(){
-        return new Cliente(this.nome, this.telefoneUm, this.telefoneDois, this.endereco, this.cpf_cnpj, this.ativo, this.observacao);
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getTelefoneUm() {
-        return telefoneUm;
-    }
-
-    public void setTelefoneUm(String telefoneUm) {
-        this.telefoneUm = telefoneUm;
-    }
-
-    public String getTelefoneDois() {
-        return telefoneDois;
-    }
-
-    public void setTelefoneDois(String telefoneDois) {
-        this.telefoneDois = telefoneDois;
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getCpf_cnpj() {
-        return cpf_cnpj;
-    }
-
-    public void setCpf_cnpj(String cpf_cnpj) {
-        this.cpf_cnpj = cpf_cnpj;
-    }
-
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
-
-    public String getObservacao() {
-        return observacao;
-    }
-
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
+        return TypeUtils.parseToEntity(this, Cliente.class);
     }
 
     @Override

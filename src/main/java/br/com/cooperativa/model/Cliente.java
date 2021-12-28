@@ -1,7 +1,9 @@
 package br.com.cooperativa.model;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.CascadeType;
@@ -14,12 +16,15 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente implements Serializable  {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Cliente extends BaseEntity implements Serializable  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,107 +55,6 @@ public class Cliente implements Serializable  {
 
     @Column(name = "observacao", length = 500)
     private String observacao;
-
-    @Column(name = "create_time", nullable = false, updatable = false)
-    @CreationTimestamp
-    private LocalDateTime createDateTime;
-
-    @Column(name = "update_time", nullable = false)
-    @UpdateTimestamp
-    private LocalDateTime updateDateTime;
-
-    public Cliente() {
-    }
-
-    public Cliente(String nome, String telefoneUm, String telefoneDois, Endereco endereco, String cpf_cnpj, boolean ativo, String observacao) {
-        this.nome = nome;
-        this.telefoneUm = telefoneUm;
-        this.telefoneDois = telefoneDois;
-        this.endereco = endereco;
-        this.cpf_cnpj = cpf_cnpj;
-        this.ativo = ativo;
-        this.observacao = observacao;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getTelefoneUm() {
-        return telefoneUm;
-    }
-
-    public void setTelefoneUm(String telefoneUm) {
-        this.telefoneUm = telefoneUm;
-    }
-
-    public String getTelefoneDois() {
-        return telefoneDois;
-    }
-
-    public void setTelefoneDois(String telefoneDois) {
-        this.telefoneDois = telefoneDois;
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getCpf_cnpj() {
-        return cpf_cnpj;
-    }
-
-    public void setCpf_cnpj(String cpf_cnpj) {
-        this.cpf_cnpj = cpf_cnpj;
-    }
-
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
-
-    public String getObservacao() {
-        return observacao;
-    }
-
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
-    }
-
-    public LocalDateTime getCreateDateTime() {
-        return createDateTime;
-    }
-
-    public void setCreateDateTime(LocalDateTime createDateTime) {
-        this.createDateTime = createDateTime;
-    }
-
-    public LocalDateTime getUpdateDateTime() {
-        return updateDateTime;
-    }
-
-    public void setUpdateDateTime(LocalDateTime updateDateTime) {
-        this.updateDateTime = updateDateTime;
-    }
 
     @Override
     public boolean equals(Object o) {

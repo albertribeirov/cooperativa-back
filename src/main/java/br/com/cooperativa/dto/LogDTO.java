@@ -2,35 +2,26 @@ package br.com.cooperativa.dto;
 
 import br.com.cooperativa.enumeration.TipoMensagem;
 import br.com.cooperativa.model.Log;
+import br.com.cooperativa.utils.TypeUtils;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class LogDTO implements Serializable {
 
     private String mensagem;
     private TipoMensagem tipoMensagem ;
 
-    public LogDTO() {
-    }
-
     //Transformation DTO -> Log
     public Log dtoToLog(){
-        return new Log(this.mensagem, this.tipoMensagem);
+        return TypeUtils.parseToEntity(this, Log.class);
     }
 
-    public String getMensagem() {
-        return mensagem;
-    }
-
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
-    }
-
-    public TipoMensagem getTipoMensagem() {
-        return tipoMensagem;
-    }
-
-    public void setTipoMensagem(TipoMensagem tipoMensagem) {
-        this.tipoMensagem = tipoMensagem;
-    }
 }

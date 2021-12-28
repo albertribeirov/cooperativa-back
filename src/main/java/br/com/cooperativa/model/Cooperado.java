@@ -1,7 +1,9 @@
 package br.com.cooperativa.model;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,11 +13,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-public class Cooperado implements Serializable {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Cooperado extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,111 +43,10 @@ public class Cooperado implements Serializable {
     private String cpf;
 
     @Column(name = "ativo", nullable = false)
-    private boolean ativo;
+    private Boolean ativo;
 
     @Column(name = "observacao", length = 500)
     private String observacao;
-
-    @Column(name = "create_time", nullable = false, updatable = false)
-    @CreationTimestamp
-    private LocalDateTime createDateTime;
-
-    @Column(name = "update_time", nullable = false)
-    @UpdateTimestamp
-    private LocalDateTime updateDateTime;
-
-    public Cooperado() {
-    }
-
-    public Cooperado(String nomeCompleto, String telefoneUm, String telefoneDois, Endereco endereco, String cpf, boolean ativo, String observacao) {
-        this.nomeCompleto = nomeCompleto;
-        this.telefoneUm = telefoneUm;
-        this.telefoneDois = telefoneDois;
-        this.endereco = endereco;
-        this.cpf = cpf;
-        this.ativo = ativo;
-        this.observacao = observacao;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getNomeCompleto() {
-        return nomeCompleto;
-    }
-
-    public void setNomeCompleto(String nomeCompleto) {
-        this.nomeCompleto = nomeCompleto;
-    }
-
-    public String getTelefoneUm() {
-        return telefoneUm;
-    }
-
-    public void setTelefoneUm(String telefoneUm) {
-        this.telefoneUm = telefoneUm;
-    }
-
-    public String getTelefoneDois() {
-        return telefoneDois;
-    }
-
-    public void setTelefoneDois(String telefoneDois) {
-        this.telefoneDois = telefoneDois;
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
-
-    public String getObservacao() {
-        return observacao;
-    }
-
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
-    }
-
-    public LocalDateTime getCreateDateTime() {
-        return createDateTime;
-    }
-
-    public void setCreateDateTime(LocalDateTime createDateTime) {
-        this.createDateTime = createDateTime;
-    }
-
-    public LocalDateTime getUpdateDateTime() {
-        return updateDateTime;
-    }
-
-    public void setUpdateDateTime(LocalDateTime updateDateTime) {
-        this.updateDateTime = updateDateTime;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -173,8 +77,8 @@ public class Cooperado implements Serializable {
                 ", cpf='" + cpf + '\'' +
                 ", ativo=" + ativo +
                 ", observacao='" + observacao + '\'' +
-                ", createDateTime=" + createDateTime +
-                ", updateDateTime=" + updateDateTime +
+                ", createDateTime=" + updateDateTime +
+                ", updateDateTime=" + createDateTime +
                 '}';
     }
 }

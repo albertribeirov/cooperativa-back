@@ -1,6 +1,10 @@
 package br.com.cooperativa.model;
 
 import br.com.cooperativa.enumeration.TipoMovimentacaoEstoque;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -18,12 +22,14 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 @Table(name = "venda")
-public class Venda implements Serializable {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Venda extends BaseEntity implements Serializable {
 
     @Id
     @Column(name = "id")
@@ -46,99 +52,6 @@ public class Venda implements Serializable {
 
     @Column(name = "data_venda", nullable = false)
     private LocalDate dataVenda;
-
-    @Column(name = "create_time", nullable = false, updatable = false)
-    @CreationTimestamp
-    private LocalDateTime createDateTime;
-
-    @Column(name = "update_time", nullable = false)
-    @UpdateTimestamp
-    private LocalDateTime updateDateTime;
-
-    public Venda() {
-    }
-
-    public Venda(String notaFiscal, Cliente cliente, TipoMovimentacaoEstoque tipoMovimentacaoEstoque, BigDecimal totalVenda, LocalDate dataVenda) {
-        this.notaFiscal = notaFiscal;
-        this.cliente = cliente;
-        this.tipoMovimentacaoEstoque = tipoMovimentacaoEstoque;
-        this.totalVenda = totalVenda;
-        this.dataVenda = dataVenda;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNotaFiscal() {
-        return notaFiscal;
-    }
-
-    public void setNotaFiscal(String notaFiscal) {
-        this.notaFiscal = notaFiscal;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public TipoMovimentacaoEstoque getTipoMovimentacaoEstoque() {
-        return tipoMovimentacaoEstoque;
-    }
-
-    public void setTipoMovimentacaoEstoque(TipoMovimentacaoEstoque tipoMovimentacaoEstoque) {
-        this.tipoMovimentacaoEstoque = tipoMovimentacaoEstoque;
-    }
-
-    public BigDecimal getTotalVenda() {
-        return totalVenda;
-    }
-
-    public void setTotalVenda(BigDecimal totalVenda) {
-        this.totalVenda = totalVenda;
-    }
-
-    public LocalDate getDataVenda() {
-        return dataVenda;
-    }
-
-    public void setDataVenda(LocalDate dataVenda) {
-        this.dataVenda = dataVenda;
-    }
-
-    public LocalDateTime getCreateDateTime() {
-        return createDateTime;
-    }
-
-    public void setCreateDateTime(LocalDateTime createDateTime) {
-        this.createDateTime = createDateTime;
-    }
-
-    public LocalDateTime getUpdateDateTime() {
-        return updateDateTime;
-    }
-
-    public void setUpdateDateTime(LocalDateTime updateDateTime) {
-        this.updateDateTime = updateDateTime;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Venda venda = (Venda) o;
-
-        return Objects.equals(id, venda.id);
-    }
 
     @Override
     public int hashCode() {

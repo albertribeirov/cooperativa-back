@@ -1,9 +1,18 @@
 package br.com.cooperativa.dto;
 
 import br.com.cooperativa.model.Endereco;
+import br.com.cooperativa.utils.TypeUtils;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class EnderecoDTO implements Serializable {
 
     private String ruaComNumero;
@@ -11,42 +20,7 @@ public class EnderecoDTO implements Serializable {
     private String cidade;
     private String cep;
 
-    public EnderecoDTO() {
-    }
-
-    public Endereco dtoToEndereco(){
-        return new Endereco(this.ruaComNumero, this.bairro, this.cidade, this.cep);
-    }
-
-    public String getRuaComNumero() {
-        return ruaComNumero;
-    }
-
-    public void setRuaComNumero(String ruaComNumero) {
-        this.ruaComNumero = ruaComNumero;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
+    public Endereco dtoToEndereco() {
+        return TypeUtils.parseToEntity(this, Endereco.class);
     }
 }

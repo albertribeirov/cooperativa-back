@@ -1,8 +1,11 @@
 package br.com.cooperativa.model;
 
 import br.com.cooperativa.enumeration.TipoMovimentacaoEstoque;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,11 +20,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "movimentacao_estoque")
-public class MovimentacaoEstoque implements Serializable {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class MovimentacaoEstoque extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,14 +52,6 @@ public class MovimentacaoEstoque implements Serializable {
     @Column(name = "data_movimentacao", nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDate dataMovimentacao;
-
-    @Column(name = "create_time", nullable = false, updatable = false)
-    @CreationTimestamp
-    private LocalDateTime createDateTime;
-
-    @Column(name = "update_time", nullable = false)
-    @UpdateTimestamp
-    private LocalDateTime updateDateTime;
 
     public MovimentacaoEstoque() {
 
@@ -129,7 +127,7 @@ public class MovimentacaoEstoque implements Serializable {
     public void setUpdateDateTime(LocalDateTime updateDateTime) {
         this.updateDateTime = updateDateTime;
     }
-
+  
     @Override
     public String toString() {
         return "MovimentacaoEstoque{" +

@@ -3,44 +3,27 @@ package br.com.cooperativa.dto;
 import br.com.cooperativa.model.Estoque;
 import br.com.cooperativa.model.Material;
 import br.com.cooperativa.model.TipoMaterial;
+import br.com.cooperativa.utils.TypeUtils;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class EstoqueDTO implements Serializable {
 
-    private Integer quantidadeEmKg;
+    private Double quantidadeEmKg;
     private TipoMaterial tipoMaterial;
     private Material material;
 
-    public EstoqueDTO() {
-    }
-
     // Transformation DTO -> Estoque
     public Estoque dtoToEstoque(){
-        return new Estoque(this.quantidadeEmKg, this.tipoMaterial, this.material);
+        return TypeUtils.parseToEntity(this, Estoque.class);
     }
 
-    public Integer getQuantidadeEmKg() {
-        return quantidadeEmKg;
-    }
-
-    public void setQuantidadeEmKg(Integer quantidadeEmKg) {
-        this.quantidadeEmKg = quantidadeEmKg;
-    }
-
-    public TipoMaterial getTipoMaterial() {
-        return tipoMaterial;
-    }
-
-    public void setTipoMaterial(TipoMaterial tipoMaterial) {
-        this.tipoMaterial = tipoMaterial;
-    }
-
-    public Material getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(Material material) {
-        this.material = material;
-    }
 }
