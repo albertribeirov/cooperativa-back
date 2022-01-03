@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -79,6 +80,15 @@ public class EstoqueService {
         Estoque estoque = estoqueRepository.findById((Long) id).get();
         logger.info("Encontrado com sucesso.");
         return ResponseEntity.ok(estoque);
+    }
+
+    public ResponseEntity<List<Estoque>> listarEstoqueOrderByTipoMaterialAndMaterial() {
+        List<Estoque> itensEmEstoque = estoqueRepository.listarEstoqueOrderByTipoMaterialAndMaterial();
+        if (itensEmEstoque.isEmpty()) {
+            return ResponseEntity.ok(Collections.emptyList());
+        }
+
+        return ResponseEntity.ok(itensEmEstoque);
     }
 
 }

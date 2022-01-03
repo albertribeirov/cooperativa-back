@@ -29,7 +29,7 @@ public class Estoque extends BaseEntity implements Serializable {
     private Long id;
 
     @Column(name = "quantidade")
-    private Double quantidadeEmKg;
+    private Integer quantidadeEmKg;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_tipo_material")
