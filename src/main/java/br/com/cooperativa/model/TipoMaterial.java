@@ -1,5 +1,6 @@
 package br.com.cooperativa.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,8 +20,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tipo_material")
-@Data
 @AllArgsConstructor
+@Data
 @NoArgsConstructor
 @Builder
 public class TipoMaterial extends BaseEntity implements Serializable {
@@ -34,6 +35,7 @@ public class TipoMaterial extends BaseEntity implements Serializable {
     private String nome;
 
     @OneToMany(mappedBy = "tipoMaterial")
+    @JsonIgnore
     private List<Material> materiais = new ArrayList<>();
 
     @Override
