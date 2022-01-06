@@ -4,11 +4,11 @@ import br.com.cooperativa.model.Venda;
 import br.com.cooperativa.repository.VendaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class VendaService {
@@ -55,9 +55,9 @@ public class VendaService {
         return ResponseEntity.ok(vendaAtt);
     }
 
-    public ResponseEntity<List<Venda>> findAll(){
-        List<Venda> vendas = vendaRepository.findAll();
-        logger.info("Encontrado lista de vendas. Tamanho: " + vendas.size());
+    public ResponseEntity<Page<Venda>> findAll(Pageable pageable){
+        Page<Venda> vendas = vendaRepository.findAll(pageable);
+        logger.info("Encontrado lista de vendas. Tamanho: " + vendas.getTotalElements());
         return ResponseEntity.ok(vendas);
     }
 

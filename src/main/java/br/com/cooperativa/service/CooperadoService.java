@@ -4,11 +4,11 @@ import br.com.cooperativa.model.Cooperado;
 import br.com.cooperativa.repository.CooperadoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class CooperadoService {
@@ -55,9 +55,9 @@ public class CooperadoService {
         return ResponseEntity.ok(cooperadoAtt);
     }
 
-    public ResponseEntity<List<Cooperado>> findAll(){
-        List<Cooperado> cooperados = cooperadoRepository.findAll();
-        logger.info("Encontrado a lista de cooperados. Tamanho: " + cooperados.size());
+    public ResponseEntity<Page<Cooperado>> findAll(Pageable pageable){
+        Page<Cooperado> cooperados = cooperadoRepository.findAll(pageable);
+        logger.info("Encontrado a lista de cooperados. Tamanho: " + cooperados.getTotalElements());
         return ResponseEntity.ok(cooperados);
     }
 

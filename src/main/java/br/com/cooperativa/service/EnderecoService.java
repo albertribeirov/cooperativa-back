@@ -4,11 +4,11 @@ import br.com.cooperativa.model.Endereco;
 import br.com.cooperativa.repository.EnderecoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class EnderecoService {
@@ -55,9 +55,9 @@ public class EnderecoService {
         return ResponseEntity.ok(enderecoAtt);
     }
 
-    public ResponseEntity<List<Endereco>> findAll(){
-        List<Endereco> enderecos = enderecoRepository.findAll();
-        logger.info("Encontrado lista de endereco. Tamanho: " + enderecos.size());
+    public ResponseEntity<Page<Endereco>> findAll(Pageable pageable){
+        Page<Endereco> enderecos = enderecoRepository.findAll(pageable);
+        logger.info("Encontrado lista de endereco. Tamanho: " + enderecos.getTotalElements());
         return ResponseEntity.ok(enderecos);
     }
 

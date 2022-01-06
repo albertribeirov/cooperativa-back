@@ -8,6 +8,8 @@ import br.com.cooperativa.repository.EstoqueRepository;
 import br.com.cooperativa.repository.MaterialRepository;
 import br.com.cooperativa.repository.MovimentacaoEstoqueRepository;
 
+import java.time.LocalDate;
+
 public class RNInserirMaterialAndEstoqueInicialZerado {
 
     private static RNInserirMaterialAndEstoqueInicialZerado regraDeNegocio;
@@ -31,7 +33,7 @@ public class RNInserirMaterialAndEstoqueInicialZerado {
                 .build();
 
         MovimentacaoEstoque movimentacaoEstoque = MovimentacaoEstoque.builder()
-                .quantidade(0D)
+                .quantidadeEmKg(0D)
                 .tipoMovimentacaoEstoque(TipoMovimentacaoEstoque.ENTRADA)
                 .tipoMaterial(material.getTipoMaterial())
                 .material(material)

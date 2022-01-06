@@ -35,7 +35,7 @@ public class MovimentacaoEstoque extends BaseEntity implements Serializable {
     private Long id;
 
     @Column(name = "quantidade", nullable = false)
-    private Integer quantidadeEmKg;
+    private Double quantidadeEmKg;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "tipo_movimentacao", nullable = false)
@@ -53,81 +53,6 @@ public class MovimentacaoEstoque extends BaseEntity implements Serializable {
     @CreationTimestamp
     private LocalDate dataMovimentacao;
 
-    public MovimentacaoEstoque() {
-
-    }
-
-    public MovimentacaoEstoque(Integer quantidadeEmKg, TipoMovimentacaoEstoque tipoMovimentacaoEstoque, TipoMaterial tipoMaterial, Material material) {
-        this.quantidadeEmKg = quantidadeEmKg;
-        this.tipoMovimentacaoEstoque = tipoMovimentacaoEstoque;
-        this.tipoMaterial = tipoMaterial;
-        this.material = material;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Integer getQuantidadeEmKg() {
-        return quantidadeEmKg;
-    }
-
-    public void setQuantidadeEmKg(Integer quantidade) {
-        this.quantidadeEmKg = quantidade;
-    }
-
-    public TipoMaterial getTipoMaterial() {
-        return tipoMaterial;
-    }
-
-    public void setTipoMaterial(TipoMaterial tipoMaterial) {
-        this.tipoMaterial = tipoMaterial;
-    }
-
-    public Material getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(Material material) {
-        this.material = material;
-    }
-
-    public TipoMovimentacaoEstoque getTipoMovimentacaoEstoque() {
-        return tipoMovimentacaoEstoque;
-    }
-
-    public void setTipoMovimentacaoEstoque(TipoMovimentacaoEstoque tipoMovimentacaoEstoque) {
-        this.tipoMovimentacaoEstoque = tipoMovimentacaoEstoque;
-    }
-
-    public LocalDate getDataMovimentacao() {
-        return dataMovimentacao;
-    }
-
-    public void setDataMovimentacao(LocalDate dataMovimentacao) {
-        this.dataMovimentacao = dataMovimentacao;
-    }
-
-    public LocalDateTime getCreateDateTime() {
-        return createDateTime;
-    }
-
-    public void setCreateDateTime(LocalDateTime createDateTime) {
-        this.createDateTime = createDateTime;
-    }
-
-    public LocalDateTime getUpdateDateTime() {
-        return updateDateTime;
-    }
-
-    public void setUpdateDateTime(LocalDateTime updateDateTime) {
-        this.updateDateTime = updateDateTime;
-    }
-  
     @Override
     public String toString() {
         return "MovimentacaoEstoque{" +

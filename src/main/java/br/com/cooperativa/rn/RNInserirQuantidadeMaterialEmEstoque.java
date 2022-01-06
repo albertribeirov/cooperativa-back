@@ -38,12 +38,12 @@ public class RNInserirQuantidadeMaterialEmEstoque {
             estoqueRepository.save(estoqueFromDb);
         }
 
-        MovimentacaoEstoque movimentacaoEstoque = new MovimentacaoEstoque(
-                estoque.getQuantidadeEmKg(),
-                TipoMovimentacaoEstoque.ENTRADA,
-                estoque.getTipoMaterial(),
-                estoque.getMaterial()
-        );
+        MovimentacaoEstoque movimentacaoEstoque = MovimentacaoEstoque.builder()
+                .quantidadeEmKg(estoque.getQuantidadeEmKg())
+                .tipoMovimentacaoEstoque(TipoMovimentacaoEstoque.ENTRADA)
+                .tipoMaterial(estoque.getTipoMaterial())
+                .material(estoque.getMaterial())
+                .build();
 
         movimentacaoEstoqueRepository.save(movimentacaoEstoque);
     }

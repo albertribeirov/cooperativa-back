@@ -4,6 +4,8 @@ package br.com.cooperativa.controller;
 import br.com.cooperativa.dto.ClienteDTO;
 import br.com.cooperativa.model.Cliente;
 import br.com.cooperativa.service.ClienteService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/cliente")
@@ -32,8 +33,8 @@ public class ClienteController {
 
     @GetMapping
     @ResponseBody
-    public ResponseEntity<List<Cliente>> getAll() {
-        return clienteService.findAll();
+    public ResponseEntity<Page<Cliente>> getAll(Pageable pageable) {
+        return clienteService.findAll(pageable);
     }
 
     @GetMapping("/{id}")

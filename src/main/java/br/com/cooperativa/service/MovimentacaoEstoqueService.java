@@ -4,11 +4,11 @@ import br.com.cooperativa.model.MovimentacaoEstoque;
 import br.com.cooperativa.repository.MovimentacaoEstoqueRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class MovimentacaoEstoqueService {
@@ -54,9 +54,9 @@ public class MovimentacaoEstoqueService {
         return ResponseEntity.ok(mvAtt);
     }
 
-    public ResponseEntity<List<MovimentacaoEstoque>> findAll(){
-        List<MovimentacaoEstoque> movimentacaoEstoques = movimentacaoEstoqueRepository.findAll();
-        logger.info("Encontrado uma lista de movimentacao. Tamanho: " + movimentacaoEstoques.size());
+    public ResponseEntity<Page<MovimentacaoEstoque>> findAll(Pageable pageable){
+        Page<MovimentacaoEstoque> movimentacaoEstoques = movimentacaoEstoqueRepository.findAll(pageable);
+        logger.info("Encontrado uma lista de movimentacao. Tamanho: " + movimentacaoEstoques.getTotalElements());
         return ResponseEntity.ok(movimentacaoEstoques);
     }
 
