@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("localhost:3000")
 public class EstoqueController {
 
-    private final EstoqueService estoqueService ;
+    private final EstoqueService estoqueService;
 
     public EstoqueController(EstoqueService estoqueService) {
         this.estoqueService = estoqueService;
@@ -35,7 +35,7 @@ public class EstoqueController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Estoque> getEstoque(@PathVariable Long id){
+    public ResponseEntity<Estoque> getEstoque(@PathVariable Long id) {
         return estoqueService.findById(id);
     }
 
@@ -55,5 +55,11 @@ public class EstoqueController {
     @ResponseBody
     public ResponseEntity<Estoque> deleteEstoque(@PathVariable Long id) {
         return estoqueService.deleteById(id);
+    }
+
+    @GetMapping("/all")
+    @ResponseBody
+    public ResponseEntity<List<Estoque>> listarEstoqueOrderByTipoMaterialAndMaterial() {
+        return estoqueService.listarEstoqueOrderByTipoMaterialAndMaterial();
     }
 }

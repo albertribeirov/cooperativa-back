@@ -16,4 +16,7 @@ public interface EstoqueRepository extends JpaRepository<Estoque, Long> {
     @Query("FROM Estoque e WHERE e.material.id = :id")
     Estoque consultarEstoquePorIdMaterial(Long id);
 
+    @Query("FROM Estoque e ORDER BY e.tipoMaterial.nome, e.material.nome")
+    List<Estoque> listarEstoqueOrderByTipoMaterialAndMaterial();
+
 }

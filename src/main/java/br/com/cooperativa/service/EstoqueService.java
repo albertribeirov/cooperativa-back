@@ -81,4 +81,13 @@ public class EstoqueService {
         return ResponseEntity.ok(estoque);
     }
 
+    public ResponseEntity<List<Estoque>> listarEstoqueOrderByTipoMaterialAndMaterial() {
+        List<Estoque> itensEmEstoque = estoqueRepository.listarEstoqueOrderByTipoMaterialAndMaterial();
+        if (itensEmEstoque.isEmpty()) {
+            return ResponseEntity.ok(Collections.emptyList());
+        }
+
+        return ResponseEntity.ok(itensEmEstoque);
+    }
+
 }

@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "movimentacao_estoque")
@@ -52,7 +53,7 @@ public class MovimentacaoEstoque extends BaseEntity implements Serializable {
     @Column(name = "data_movimentacao", nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDate dataMovimentacao;
-
+  
     @Override
     public String toString() {
         return "MovimentacaoEstoque{" +

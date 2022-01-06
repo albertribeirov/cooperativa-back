@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MaterialService {
 
     //Logger to easy debug
-    private static final Logger logger = LoggerFactory.getLogger(ClienteService.class);
+    private static final Logger logger = LoggerFactory.getLogger(MaterialService.class);
 
     private final MaterialRepository materialRepository;
     private final EstoqueRepository estoqueRepository;
