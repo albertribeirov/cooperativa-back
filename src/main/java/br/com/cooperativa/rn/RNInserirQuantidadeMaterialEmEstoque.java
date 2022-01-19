@@ -34,7 +34,7 @@ public class RNInserirQuantidadeMaterialEmEstoque {
             estoqueRepository.save(estoque);
         } else {
             estoqueFromDb = estoques.get(0);
-            estoqueFromDb.setQuantidadeEmKg(estoqueFromDb.getQuantidadeEmKg() + estoque.getQuantidadeEmKg());
+            estoqueFromDb.setQuantidadeEmKg(estoqueFromDb.getQuantidadeEmKg().add(estoque.getQuantidadeEmKg()));
             estoqueRepository.save(estoqueFromDb);
         }
 

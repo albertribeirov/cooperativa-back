@@ -21,7 +21,7 @@ public class RNIncluirMaterialEstoqueAndMovimentacaoEstoque {
                         MovimentacaoEstoqueRepository movimentacaoEstoqueRepository) {
 
         Estoque estoque = estoqueRepository.consultarEstoquePorIdMaterial(movimentacaoEstoque.getMaterial().getId());
-        estoque.setQuantidadeEmKg(estoque.getQuantidadeEmKg() + movimentacaoEstoque.getQuantidadeEmKg());
+        estoque.setQuantidadeEmKg(estoque.getQuantidadeEmKg().add(movimentacaoEstoque.getQuantidadeEmKg()));
 
         movimentacaoEstoqueRepository.save(movimentacaoEstoque);
         estoqueRepository.save(estoque);
