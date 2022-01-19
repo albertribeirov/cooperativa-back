@@ -3,6 +3,8 @@ package br.com.cooperativa.controller;
 import br.com.cooperativa.dto.EnderecoDTO;
 import br.com.cooperativa.model.Endereco;
 import br.com.cooperativa.service.EnderecoService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/endereco")
@@ -30,8 +30,8 @@ public class EnderecoController {
 
     @GetMapping
     @ResponseBody
-    public ResponseEntity<List<Endereco>> getAll() {
-        return enderecoService.findAll();
+    public ResponseEntity<Page<Endereco>> getAll(Pageable pageable) {
+        return enderecoService.findAll(pageable);
     }
 
     @GetMapping("/{id}")

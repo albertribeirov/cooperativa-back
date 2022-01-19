@@ -6,12 +6,11 @@ import br.com.cooperativa.repository.MovimentacaoEstoqueRepository;
 import br.com.cooperativa.rn.RNInserirQuantidadeMaterialEmEstoque;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Collections;
-import java.util.List;
 
 @Service
 public class EstoqueService {
@@ -65,9 +64,9 @@ public class EstoqueService {
         return ResponseEntity.ok(estoqueAtt);
     }
 
-    public ResponseEntity<List<Estoque>> findAll() {
-        List<Estoque> estoques = estoqueRepository.findAll();
-        logger.info("Lista de estoque encontrado. Tamanho: " + estoques.size());
+    public ResponseEntity<Page<Estoque>> findAll(Pageable pageable) {
+        Page<Estoque> estoques = estoqueRepository.findAll(pageable);
+        logger.info("Lista de estoque encontrado. Tamanho: " + estoques.getTotalElements());
         return ResponseEntity.ok(estoques);
     }
 

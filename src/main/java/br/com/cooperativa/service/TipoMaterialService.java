@@ -4,11 +4,11 @@ import br.com.cooperativa.model.TipoMaterial;
 import br.com.cooperativa.repository.TipoMaterialRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class TipoMaterialService {
@@ -55,9 +55,9 @@ public class TipoMaterialService {
         return ResponseEntity.ok(tipoMaterialAtt);
     }
 
-    public ResponseEntity<List<TipoMaterial>> findAll(){
-        List<TipoMaterial> tipoMaterials = tipoMaterialRepository.findAll();
-        logger.info("Lista de Tipos encontrada com sucesso. Tamanho: " + tipoMaterials.size());
+    public ResponseEntity<Page<TipoMaterial>> findAll(Pageable pageable){
+        Page<TipoMaterial> tipoMaterials = tipoMaterialRepository.findAll(pageable);
+        logger.info("Lista de Tipos encontrada com sucesso. Tamanho: " + tipoMaterials.getTotalElements());
         return ResponseEntity.ok(tipoMaterials);
     }
 

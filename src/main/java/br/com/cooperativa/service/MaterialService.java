@@ -7,11 +7,11 @@ import br.com.cooperativa.repository.MovimentacaoEstoqueRepository;
 import br.com.cooperativa.rn.RNInserirMaterialAndEstoqueInicialZerado;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class MaterialService {
@@ -66,9 +66,9 @@ public class MaterialService {
         return ResponseEntity.ok(materialAtt);
     }
 
-    public ResponseEntity<List<Material>> findAll(){
-        List<Material> materials = materialRepository.findAll();
-        logger.info("Encontrado uma lista de materiais. Tamanho: " + materials.size());
+    public ResponseEntity<Page<Material>> findAll(Pageable pageable){
+        Page<Material> materials = materialRepository.findAll(pageable);
+        logger.info("Encontrado uma lista de materiais. Tamanho: " + materials.getTotalElements());
         return ResponseEntity.ok(materials);
     }
 

@@ -4,11 +4,11 @@ import br.com.cooperativa.model.DetalhamentoVenda;
 import br.com.cooperativa.repository.DetalhamentoVendaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class DetalhamentoVendaService {
@@ -55,9 +55,9 @@ public class DetalhamentoVendaService {
         return ResponseEntity.ok(detalhamentoVendaAtt);
     }
 
-    public ResponseEntity<List<DetalhamentoVenda>> findAll(){
-        List<DetalhamentoVenda> detalhamentoVendas = detalhamentoVendaRepository.findAll();
-        logger.info("Encontrado lista de detalhamentos. Tamanho: " + detalhamentoVendas.size());
+    public ResponseEntity<Page<DetalhamentoVenda>> findAll(Pageable pageable){
+        Page<DetalhamentoVenda> detalhamentoVendas = detalhamentoVendaRepository.findAll(pageable);
+        logger.info("Encontrado lista de detalhamentos. Tamanho: " + detalhamentoVendas.getTotalElements());
         return ResponseEntity.ok(detalhamentoVendas);
     }
 

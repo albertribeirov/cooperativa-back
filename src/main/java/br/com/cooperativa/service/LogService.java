@@ -4,11 +4,11 @@ import br.com.cooperativa.model.Log;
 import br.com.cooperativa.repository.LogRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class LogService {
@@ -55,9 +55,9 @@ public class LogService {
         return ResponseEntity.ok(logAtt);
     }
 
-    public ResponseEntity<List<Log>> findAll(){
-        List<Log> logs = logRepository.findAll();
-        logger.info("Lista de logs encontrada. Tamanho: " + logs.size());
+    public ResponseEntity<Page<Log>> findAll(Pageable pageable){
+        Page<Log> logs = logRepository.findAll(pageable);
+        logger.info("Lista de logs encontrada. Tamanho: " + logs.getTotalElements());
         return ResponseEntity.ok(logs);
     }
 

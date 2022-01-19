@@ -3,6 +3,8 @@ package br.com.cooperativa.controller;
 import br.com.cooperativa.dto.MovimentacaoEstoqueDTO;
 import br.com.cooperativa.model.MovimentacaoEstoque;
 import br.com.cooperativa.service.MovimentacaoEstoqueService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/movimentacaoestoque")
@@ -30,8 +30,8 @@ public class MovimentacaoEstoqueController {
 
     @GetMapping
     @ResponseBody
-    public ResponseEntity<List<MovimentacaoEstoque>> getAll() {
-        return movimentacaoEstoqueService.findAll();
+    public ResponseEntity<Page<MovimentacaoEstoque>> getAll(Pageable pageable) {
+        return movimentacaoEstoqueService.findAll(pageable);
     }
 
 
