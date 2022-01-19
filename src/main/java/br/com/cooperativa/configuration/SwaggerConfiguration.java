@@ -17,8 +17,8 @@ public class SwaggerConfiguration {
                         .title("Cooperativa API")
                         .version("1.0")
                         .description("Cooperativa API")
-                        .termsOfService("http://swagger.io/terms/")
-                        .license(new License().name("Apache 2.0").url("http://springdoc.org"))
+                        .termsOfService("https://swagger.io/terms/")
+                        .license(new License().name("Apache 2.0").url("https://springdoc.org"))
                         .contact(new Contact()
                                 .name("Cooperativa")));
 

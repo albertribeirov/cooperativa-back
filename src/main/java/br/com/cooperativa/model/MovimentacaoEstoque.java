@@ -19,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -35,8 +36,8 @@ public class MovimentacaoEstoque extends BaseEntity implements Serializable {
     @Column
     private Long id;
 
-    @Column(name = "quantidade", nullable = false)
-    private Double quantidadeEmKg;
+    @Column(name = "quantidade", nullable = false, precision = 14, scale = 1)
+    private BigDecimal quantidadeEmKg;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "tipo_movimentacao", nullable = false)
@@ -53,7 +54,7 @@ public class MovimentacaoEstoque extends BaseEntity implements Serializable {
     @Column(name = "data_movimentacao", nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDate dataMovimentacao;
-  
+
     @Override
     public String toString() {
         return "MovimentacaoEstoque{" +

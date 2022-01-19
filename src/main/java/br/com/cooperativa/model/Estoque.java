@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -28,8 +29,8 @@ public class Estoque extends BaseEntity implements Serializable {
     @Column
     private Long id;
 
-    @Column(name = "quantidade")
-    private Integer quantidadeEmKg;
+    @Column(name = "quantidade", precision = 14, scale = 1)
+    private BigDecimal quantidadeEmKg;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_tipo_material")
