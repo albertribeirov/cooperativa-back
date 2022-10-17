@@ -2,74 +2,65 @@ package br.com.cooperativa.service;
 
 import br.com.cooperativa.model.TipoMaterial;
 import br.com.cooperativa.repository.TipoMaterialRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
-public class TipoMaterialService {
+import java.util.Optional;
 
-    //Logger to easy debug
-    private static final Logger logger = LoggerFactory.getLogger(TipoMaterialService.class);
+@Service
+@Slf4j
+@AllArgsConstructor(onConstructor = @__(@Autowired))
+public class TipoMaterialService {
 
     private final TipoMaterialRepository tipoMaterialRepository;
 
-    // Dependency Injection
-    public TipoMaterialService(TipoMaterialRepository tipoMaterialRepository) {
-        this.tipoMaterialRepository = tipoMaterialRepository;
+    @Transactional
+    public TipoMaterial save(TipoMaterial tipoMaterial) {
+        var tipoMaterialFromDb = tipoMaterialRepository.saveAndFlush(tipoMaterial);
+        log.info("Tipo salvo com sucesso.");
+        return tipoMaterialFromDb;
     }
 
     @Transactional
-    public ResponseEntity<TipoMaterial> save(TipoMaterial tipoMaterial) {
-        tipoMaterialRepository.save(tipoMaterial);
-        logger.info("Tipo salvo com sucesso.");
-        return ResponseEntity.ok().build();
+    public boolean deleteById(Long id) {
+        log.info("Procurando TipoMaterial com id {}", id);
+        if (!tipoMaterialRepository.existsById(id)) {
+            log.warn("Não encontrado TipoMaterial de id {}", id);
+            return false;
+        }
+
+        tipoMaterialRepository.deleteById(id);
+        log.info("TipoMaterial de id {} deletado com sucesso", id);
+        return true;
     }
 
     @Transactional
-    public ResponseEntity<TipoMaterial> deleteById(Number id) {
-        logger.info("Procurando tipo com id: " + id);
-        if (!tipoMaterialRepository.existsById((Long) id)) {
-            logger.warn("Não encontrado.");
-            return ResponseEntity.notFound().build();
+    public TipoMaterial updateById(Long id, TipoMaterial tipoMaterial) {
+        log.info("Procurando tipo com id {}", id);
+        if (!tipoMaterialRepository.existsById(id)) {
+            log.warn("Não encontrado TipoMaterial de id {}", id);
+            return tipoMaterial;
         }
-        tipoMaterialRepository.deleteById((Long) id);
-        logger.info("Deletado com sucesso.");
-        return ResponseEntity.ok().build();
+        tipoMaterial.setId(id);
+        TipoMaterial tipoMaterialUpdated = tipoMaterialRepository.save(tipoMaterial);
+        log.info("TipoMaterial de id {} atualizado com sucesso.", id);
+        return tipoMaterialUpdated;
     }
 
-    @Transactional
-    public ResponseEntity<TipoMaterial> updateById(Number id, TipoMaterial tipoMaterial) {
-        logger.info("Procurando tipo com id: " + id);
-        if (!tipoMaterialRepository.existsById((Long) id)) {
-            logger.warn("Não encontrado.");
-            return ResponseEntity.notFound().build();
-        }
-        tipoMaterial.setId((Long) id);
-        TipoMaterial tipoMaterialAtt = tipoMaterialRepository.save(tipoMaterial);
-        logger.info("Tipo atualizado com sucesso.");
-        return ResponseEntity.ok(tipoMaterialAtt);
+    public Page<TipoMaterial> findAll(Pageable pageable) {
+        Page<TipoMaterial> tiposDeMaterial = tipoMaterialRepository.findAll(pageable);
+        log.info("Lista de TipoMaterial encontrada com sucesso. Tamanho {}", tiposDeMaterial.getTotalElements());
+        return tiposDeMaterial;
     }
 
-    public ResponseEntity<Page<TipoMaterial>> findAll(Pageable pageable){
-        Page<TipoMaterial> tipoMaterials = tipoMaterialRepository.findAll(pageable);
-        logger.info("Lista de Tipos encontrada com sucesso. Tamanho: " + tipoMaterials.getTotalElements());
-        return ResponseEntity.ok(tipoMaterials);
-    }
-
-    public ResponseEntity<TipoMaterial> findById(Number id){
-        logger.info("Procurando tipo com id: " + id);
-        if(!tipoMaterialRepository.existsById((Long) id)){
-            logger.warn("Não encontrado.");
-            return ResponseEntity.notFound().build();
-        }
-        TipoMaterial tipoMaterial = tipoMaterialRepository.findById((Long) id).get();
-        logger.info("Tipo encontrado com sucesso. Nome: " + tipoMaterial.getNome());
-        return ResponseEntity.ok(tipoMaterial);
+    public Optional<TipoMaterial> findById(Long id) {
+        log.info("Procurando tipo com id {}", id);
+        return tipoMaterialRepository.findById(id);
     }
 
 }
